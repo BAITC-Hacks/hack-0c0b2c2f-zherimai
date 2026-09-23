@@ -32,18 +32,25 @@ def assign_roles(df, graph):
                    & (result.in_deg > 0) & (result.out_deg > 0)
                    & (result.betweenness >= bw_threshold) & (result.betweenness > 0))
     result["role"] = result.base_role.where(~coordinator, "coordinator")
+    # Preserve simultaneous patterns even when a higher-priority role wins.
+    masks = {"coordinator": coordinator, "consolidator": consolidate,
+             "distributor": distribute, "transit": transit, "terminal": terminal}
+    result["matched_roles"] = [";".join(role for role, mask in masks.items() if bool(mask.loc[index])) or "peripheral"
+                               for index in result.index]
     scores = []
     for r in result.itertuples(index=False):
         if r.role == "coordinator":
             score = .5 + .5 * min(1., max(0., r.betweenness / max(bw_threshold, 1e-15) - 1.))
         elif r.role == "consolidator":
-            score = .5 + .5 * min(1., (r.in_deg - 5) / 10)
+            score = .5 + .5 * min(1., (r.in_deg - t["consolidator_in_deg"]) / (2 * t["consolidator_in_deg"]))
         elif r.role == "distributor":
-            score = .5 + .5 * min(1., (r.out_deg - 10) / 30)
+            score = .5 + .5 * min(1., (r.out_deg - t["distributor_out_deg"]) / (3 * t["distributor_out_deg"]))
         elif r.role == "transit":
-            score = .5 + .25 * max(0., 1 - abs(r.pass_through - 1) / .2) + .25 * r.fast_out_share
+            center = (t["transit_ratio_min"] + t["transit_ratio_max"]) / 2
+            half_width = (t["transit_ratio_max"] - t["transit_ratio_min"]) / 2
+            score = .5 + .25 * max(0., 1 - abs(r.pass_through - center) / half_width) + .25 * r.fast_out_share
         elif r.role == "terminal":
-            score = .5 + .5 * min(1., max(0., r.in_kzt / 50000 - 1) / 9)
+            score = .5 + .5 * min(1., max(0., r.in_kzt / t["terminal_in_kzt"] - 1) / 9)
         else:
             # Strength of a residual assignment is deliberately low with missing observations.
             score = .25 if r.truncated_by_depth or r.in_deg + r.out_deg == 0 else .5

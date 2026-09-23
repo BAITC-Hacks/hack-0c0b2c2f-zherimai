@@ -7,7 +7,7 @@ ROLE_NAMES = {"coordinator": "структурная связность", "conso
 
 def explanation(r):
     if r.role == "coordinator":
-        text = f"Связывает {r.structural_neighbors} узлов сбора/рассылки; достижим от {r.seed_reach} seed; betweenness={r.betweenness:.5f}. Гипотеза структурной координации."
+        text = f"Связывает {r.structural_neighbors} узлов сбора/рассылки; структурно достижим от {r.seed_reach} seed (без учёта дат); betweenness={r.betweenness:.5f}. Гипотеза координации."
     elif r.role == "consolidator":
         text = f"Вход от {r.in_deg} плательщиков (seed: {r.seed_payers}); {r.in_kzt:,.0f} KZT; исходящих связей {r.out_deg}. Признаки консолидации."
     elif r.role == "distributor":
@@ -28,16 +28,42 @@ def explanation(r):
 def add_explanations(df):
     result = df.copy()
     result["evidence"] = [explanation(r) for r in result.itertuples(index=False)]
+    result["next_request"] = [next_request(r) for r in result.itertuples(index=False)]
     return result
+
+
+def next_request(r):
+    if r.truncated_by_depth:
+        return "Запросить исходящие следующего колена, наличные и межбанк."
+    if r.is_seed or r.unobserved_funding:
+        return "Запросить входящие вне выборки и остаток на начало июля; уточнить назначение платежей."
+    if r.role == "terminal":
+        return "Запросить наличные, межбанк и переводы ниже 5 000 KZT."
+    if r.role == "transit":
+        return "Запросить точное время и назначение переводов для проверки последовательности."
+    return "Проверить назначение переводов и экономическое основание связей."
+
+
+def priority_explanation(r):
+    return (f"Слагаемые приоритета: роль {r.priority_role:.3f}, структурная достижимость {r.priority_reach:.3f}, "
+            f"объём {r.priority_volume:.3f}, PageRank {r.priority_pagerank:.3f}, "
+            f"паттерны {r.priority_patterns:.3f}; множитель seed {r.seed_discount:.1f}.")
 
 
 def top_nodes(df, count=50):
     top = df.sort_values(["priority_score", "gid"], ascending=[False, True]).head(count)
     rows = []
     for rank, r in enumerate(top.itertuples(index=False), 1):
-        followup = "Запросить исходящие за границей обхода." if r.truncated_by_depth else "Проверить назначение и полную историю переводов."
+        patterns = getattr(r, "matched_roles", r.role)
+        flow = (f"Вход: {r.in_deg} плательщиков, {r.in_kzt:,.0f} KZT; "
+                f"выход: {r.out_deg} получателей, {r.out_kzt:,.0f} KZT.")
+        temporal = (f"Достижимость от seed по датам: {r.temporal_seed_reach_strict_days} "
+                    f"со строго растущими днями; до {r.temporal_seed_reach_upper} при допустимом порядке внутри дня. "
+                    "Это совместимость маршрута с датами, не происхождение денег. "
+                    if hasattr(r, "temporal_seed_reach_upper") else "")
         rows.append({"rank": rank, "gid": r.gid, "role": r.role, "priority_score": r.priority_score,
-                     "why": f"{r.evidence} Достижим от {r.seed_reach} seed. {followup}"})
+                     "why": f"{r.evidence} {flow} Сработавшие правила: {patterns}. "
+                            f"{temporal}{priority_explanation(r)} {next_request(r)}"})
     return pd.DataFrame(rows)
 
 

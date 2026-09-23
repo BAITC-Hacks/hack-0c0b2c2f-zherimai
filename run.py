@@ -16,6 +16,7 @@ from aml.roles import assign_roles
 from aml.priority import rank_nodes
 from aml.explain import add_explanations, top_nodes, data_requests
 from aml.resilience import analyze_resilience
+from aml.sensitivity import analyze_sensitivity
 from aml.viewer import build_viewer
 from aml.validate import validate_outputs
 
@@ -33,11 +34,14 @@ def main():
     features, projection = assign_clusters(features, graph)
     features, thresholds = assign_roles(features, graph)
     features = add_explanations(rank_nodes(features)).sort_values("gid").reset_index(drop=True)
+    sensitivity, stability, scenarios = analyze_sensitivity(features, graph, projection)
+    features = features.merge(stability, on="gid", how="left", validate="one_to_one")
     clusters = summarize_clusters(features, edges)
     mandatory = ["gid", "role", "role_score", "cluster_id", "priority_score", "evidence"]
     features = features[mandatory + [c for c in features.columns if c not in mandatory]]
     outputs = {"nodes_roles": features, "clusters": clusters, "top_nodes": top_nodes(features),
-               "data_requests": data_requests(features), "resilience": analyze_resilience(features, graph)}
+               "data_requests": data_requests(features), "resilience": analyze_resilience(features, graph),
+               "node_stability": stability, "sensitivity": scenarios}
     for name, frame in outputs.items():
         frame.to_csv(args.out / f"{name}.csv", index=False, float_format="%.12g")
     build_viewer(features, edges, clusters, args.out / "network.html")
@@ -49,6 +53,11 @@ def main():
               "n_clusters_including_isolate_group": len(clusters),
               "communities_with_multiple_seeds": int((clusters.loc[clusters.cluster_id != 0, "n_seed"] > 1).sum()),
               "role_counts": {k: int(v) for k, v in features.role.value_counts().items()},
+              "temporal_reach": {
+                  "nodes_with_upper_below_static": int((features.temporal_seed_reach_upper < features.seed_reach).sum()),
+                  "nodes_with_strict_below_upper": int((features.temporal_seed_reach_strict_days < features.temporal_seed_reach_upper).sum()),
+                  "interpretation": "Date-compatible paths only; same-day order is unknown, amounts and provenance are not traced"},
+              "sensitivity": sensitivity,
               "thresholds": thresholds, "runtime_seconds": round(time.perf_counter() - started, 4),
               "python": platform.python_version(),
               "packages": {p: importlib.metadata.version(p) for p in ("pandas", "pyarrow", "networkx", "numpy", "scipy")},

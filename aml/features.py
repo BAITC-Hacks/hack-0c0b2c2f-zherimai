@@ -2,6 +2,7 @@
 import networkx as nx
 import numpy as np
 import pandas as pd
+from .temporal_reach import temporal_seed_reach
 
 
 def temporal_match(incoming, outgoing):
@@ -57,6 +58,10 @@ def compute_features(nodes, edges, tx, graph):
         for gid in nx.descendants(graph, seed):
             reach[gid] += 1
     df["seed_reach"] = df.gid.map(reach).astype(int)
+    df = df.merge(temporal_seed_reach(nodes, tx), on="gid", how="left", validate="one_to_one")
+    if not ((df.temporal_seed_reach_strict_days <= df.temporal_seed_reach_upper) &
+            (df.temporal_seed_reach_upper <= df.seed_reach)).all():
+        raise ValueError("Temporal reach must satisfy strict days <= same-day upper <= static reach")
     df["seed_payers"] = [len(set(graph.predecessors(int(g))) & seeds) for g in df.gid]
     cyclic = set()
     for comp in nx.strongly_connected_components(graph):

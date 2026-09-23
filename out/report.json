@@ -17,6 +17,65 @@
     "transit": 36,
     "coordinator": 21
   },
+  "temporal_reach": {
+    "nodes_with_upper_below_static": 1827,
+    "nodes_with_strict_below_upper": 362,
+    "interpretation": "Date-compatible paths only; same-day order is unknown, amounts and provenance are not traced"
+  },
+  "sensitivity": {
+    "louvain": {
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "resolution": 1.0,
+      "weight": "weight",
+      "evaluated_nodes": 2229,
+      "excluded_isolates": 19,
+      "baseline_communities": 48,
+      "baseline_modularity": 0.7916008879557718,
+      "seed42_matches_baseline": true,
+      "communities_min": 43,
+      "communities_max": 49,
+      "alternative_ari_min": 0.6707174840749045,
+      "alternative_ari_mean": 0.6784175344248426,
+      "alternative_pair_agreement_min": 0.9688261395204232,
+      "membership_jaccard_mean": 0.6575573112492932,
+      "membership_jaccard_min": 0.012866954691481114
+    },
+    "priority": {
+      "baseline_weights": {
+        "role": 0.3,
+        "reach": 0.25,
+        "volume": 0.2,
+        "pagerank": 0.15,
+        "patterns": 0.1
+      },
+      "multipliers": [
+        0.8,
+        1.2
+      ],
+      "scenario_count_including_baseline": 11,
+      "top_k": 20,
+      "alternative_top20_overlap_min": 18,
+      "alternative_top20_overlap_mean": 19.5,
+      "alternative_top20_jaccard_min": 0.8181818181818182,
+      "always_top20_nodes": 18,
+      "ever_top20_nodes": 22,
+      "seed_discount": 0.6
+    },
+    "limits": [
+      "Only Louvain random seeds and individual priority weights are varied.",
+      "Roles, role thresholds, data, feature normalization and cluster projection stay fixed.",
+      "Stability is not accuracy, calibrated confidence or evidence of wrongdoing.",
+      "Isolates are excluded from community analysis; their per-node stability=1 is a technical sentinel.",
+      "Node membership stability excludes seed 42; priority frequency includes baseline and 10 variants.",
+      "No sensitivity to missing flows, projection choices, resolution or simultaneous weight changes is measured."
+    ]
+  },
   "thresholds": {
     "consolidator_in_deg": 5,
     "distributor_out_deg": 10,
@@ -31,11 +90,11 @@
     "coordinator_betweenness_quantile": 0.99,
     "coordinator_betweenness_actual": 0.0019892319141409562
   },
-  "runtime_seconds": 2.4757,
-  "python": "3.14.7",
+  "runtime_seconds": 4.1372,
+  "python": "3.13.2",
   "packages": {
-    "pandas": "2.3.3",
-    "pyarrow": "23.0.1",
+    "pandas": "3.0.6",
+    "pyarrow": "25.0.1",
     "networkx": "3.7",
     "numpy": "2.5.3",
     "scipy": "1.18.1"
