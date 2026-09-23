@@ -1,0 +1,306 @@
+{
+  "project": "Dala AI",
+  "author": "Erzhan",
+  "created_at": "2026-09-23T17:28:08+05:00",
+  "source_commit": "d28e885f3210ab91ba7991f0497213251e76bb28",
+  "environment": {
+    "python": "3.13.15",
+    "os": "Windows-11-10.0.26200-SP0",
+    "architecture": "AMD64",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "networkx": "3.7",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1"
+    }
+  },
+  "data": {
+    "n_nodes": 2248,
+    "n_edges": 3119,
+    "n_transactions": 4840,
+    "sum_kzt": 365890012.01,
+    "n_seed": 81,
+    "weak_components_including_isolates": 35,
+    "isolated_nodes": 19,
+    "truncated_depth4": 444,
+    "n_clusters_including_isolate_group": 49,
+    "communities_with_multiple_seeds": 9,
+    "role_counts": {
+      "peripheral": 1540,
+      "terminal": 566,
+      "distributor": 43,
+      "consolidator": 42,
+      "transit": 36,
+      "coordinator": 21
+    },
+    "temporal_reach": {
+      "nodes_with_upper_below_static": 1827,
+      "nodes_with_strict_below_upper": 362,
+      "interpretation": "Date-compatible paths only; same-day order is unknown, amounts and provenance are not traced"
+    },
+    "sensitivity": {
+      "louvain": {
+        "seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ],
+        "resolution": 1.0,
+        "weight": "weight",
+        "evaluated_nodes": 2229,
+        "excluded_isolates": 19,
+        "baseline_communities": 48,
+        "baseline_modularity": 0.7916008879557718,
+        "seed42_matches_baseline": true,
+        "communities_min": 43,
+        "communities_max": 49,
+        "alternative_ari_min": 0.6707174840749045,
+        "alternative_ari_mean": 0.6784175344248426,
+        "alternative_pair_agreement_min": 0.9688261395204232,
+        "membership_jaccard_mean": 0.6575573112492932,
+        "membership_jaccard_min": 0.012866954691481114
+      },
+      "priority": {
+        "baseline_weights": {
+          "role": 0.3,
+          "reach": 0.25,
+          "volume": 0.2,
+          "pagerank": 0.15,
+          "patterns": 0.1
+        },
+        "multipliers": [
+          0.8,
+          1.2
+        ],
+        "scenario_count_including_baseline": 11,
+        "top_k": 20,
+        "alternative_top20_overlap_min": 18,
+        "alternative_top20_overlap_mean": 19.5,
+        "alternative_top20_jaccard_min": 0.8181818181818182,
+        "always_top20_nodes": 18,
+        "ever_top20_nodes": 22,
+        "seed_discount": 0.6
+      },
+      "limits": [
+        "Only Louvain random seeds and individual priority weights are varied.",
+        "Roles, role thresholds, data, feature normalization and cluster projection stay fixed.",
+        "Stability is not accuracy, calibrated confidence or evidence of wrongdoing.",
+        "Isolates are excluded from community analysis; their per-node stability=1 is a technical sentinel.",
+        "Node membership stability excludes seed 42; priority frequency includes baseline and 10 variants.",
+        "No sensitivity to missing flows, projection choices, resolution or simultaneous weight changes is measured."
+      ]
+    }
+  },
+  "input_sha256": {
+    "edges.parquet": "4e71dde5cd3115bcb26e91202665532ee6581cf8233a9fc8059ea59fb7358a38",
+    "nodes.parquet": "d2a45b0df6e9352832d5fb09839d10b9e23f898156c3bab263b051b31cc0296d",
+    "transactions.parquet": "c30c5317b5439591dde86f2058dc47a3d19b2900c055ded994fe547f6fb7e7da"
+  },
+  "source_sha256": {
+    "run.py": "eacc58e5c6f77c6e97412e4be1d9d4a311db1a1d84d727f76dac99255f0df75a",
+    "aml/features.py": "8af183d1dff9aa334eb163bf362c9bbff10f5b5aff9fea8cb86a7e252bf5953c",
+    "aml/sensitivity.py": "cfd99d7bac52b8666b8bf552f237bf36a7642c9c238d8c0e5c3f22bad91d57ed",
+    "aml/viewer.py": "07b92f0568a1c80625f226fac78c25e7cf8abba3fbb837d187e17a57c06deb59",
+    "aml/load.py": "12b54794ee79cbe16154748a429a2f50bd3b28e9c5ccf547d2a6af7979019dfd",
+    "aml/validate.py": "e0e3861c22144c707ba4fb8dce6f64983507f7779d906bf125b7d3df8fa31889",
+    "requirements.txt": "f8f537fb51655f2dfa1c06ee58b48b44497f2000dd358f499c24a244fcfe6f1d"
+  },
+  "profile": {
+    "tool": "Python cProfile",
+    "runs": 1,
+    "total_seconds": 8.463511,
+    "pipeline_report_seconds": 8.3797,
+    "functions": [
+      {
+        "file": "aml/features.py",
+        "line": 36,
+        "function": "compute_features",
+        "primitive_calls": 1,
+        "total_calls": 1,
+        "self_seconds": 0.035213,
+        "cumulative_seconds": 2.959911
+      },
+      {
+        "file": "algorithms/centrality/betweenness.py",
+        "line": 16,
+        "function": "betweenness_centrality",
+        "primitive_calls": 1,
+        "total_calls": 1,
+        "self_seconds": 0.068334,
+        "cumulative_seconds": 1.791616
+      },
+      {
+        "file": "aml/sensitivity.py",
+        "line": 114,
+        "function": "analyze_sensitivity",
+        "primitive_calls": 1,
+        "total_calls": 1,
+        "self_seconds": 0.011528,
+        "cumulative_seconds": 0.864229
+      },
+      {
+        "file": "algorithms/community/louvain.py",
+        "line": 13,
+        "function": "louvain_communities",
+        "primitive_calls": 6,
+        "total_calls": 6,
+        "self_seconds": 0.000641,
+        "cumulative_seconds": 0.804356
+      },
+      {
+        "file": "aml/load.py",
+        "line": 13,
+        "function": "load_data",
+        "primitive_calls": 1,
+        "total_calls": 1,
+        "self_seconds": 0.00498,
+        "cumulative_seconds": 0.421481
+      },
+      {
+        "file": "aml/validate.py",
+        "line": 11,
+        "function": "validate_outputs",
+        "primitive_calls": 1,
+        "total_calls": 1,
+        "self_seconds": 0.003747,
+        "cumulative_seconds": 0.269001
+      },
+      {
+        "file": "aml/viewer.py",
+        "line": 22,
+        "function": "build_viewer",
+        "primitive_calls": 1,
+        "total_calls": 1,
+        "self_seconds": 0.000764,
+        "cumulative_seconds": 0.097022
+      },
+      {
+        "file": "aml/features.py",
+        "line": 8,
+        "function": "temporal_match",
+        "primitive_calls": 2248,
+        "total_calls": 2248,
+        "self_seconds": 0.029027,
+        "cumulative_seconds": 0.034404
+      },
+      {
+        "file": "aml/temporal_reach.py",
+        "line": 7,
+        "function": "temporal_seed_reach",
+        "primitive_calls": 1,
+        "total_calls": 1,
+        "self_seconds": 0.008044,
+        "cumulative_seconds": 0.029803
+      }
+    ],
+    "notes": [
+      "Cumulative times include nested calls and must not be added together.",
+      "Profiling overhead is included; these times are not an uninstrumented benchmark.",
+      "Peak memory and million-node performance were not measured."
+    ]
+  },
+  "previous_windows_verification": {
+    "source_commit": "193feabd0c77362d0e98d91eff3437c5295abfa5",
+    "steps": [
+      {
+        "name": "environment",
+        "exit_code": 0,
+        "wall_seconds": 0.2377
+      },
+      {
+        "name": "guard-self-test",
+        "exit_code": 0,
+        "wall_seconds": 0.0502
+      },
+      {
+        "name": "run",
+        "exit_code": 0,
+        "wall_seconds": 3.5515
+      },
+      {
+        "name": "validate",
+        "exit_code": 0,
+        "wall_seconds": 1.0555
+      },
+      {
+        "name": "audit-top",
+        "exit_code": 0,
+        "wall_seconds": 2.2875
+      },
+      {
+        "name": "node-version",
+        "exit_code": 0,
+        "wall_seconds": 0.5928
+      },
+      {
+        "name": "dom",
+        "exit_code": 0,
+        "wall_seconds": 0.6057
+      },
+      {
+        "name": "unittest",
+        "exit_code": 0,
+        "wall_seconds": 6.0208
+      }
+    ],
+    "note": "Previously completed Windows QA, not rerun or presented as fresh tests in this documentation task."
+  },
+  "artifacts": [
+    {
+      "file": "clusters.csv",
+      "bytes": 12181,
+      "sha256": "8b68497baedc29197f11cfcdf74fecd163a2ee05e6e7387800b1a9395974ef97",
+      "matches_193feab_windows_output": true
+    },
+    {
+      "file": "data_requests.csv",
+      "bytes": 224446,
+      "sha256": "4f57b91ab469f61c6b896cbc6c439ec0cdfc9aa2cdcd02ea885430e128846151",
+      "matches_193feab_windows_output": true
+    },
+    {
+      "file": "network.html",
+      "bytes": 3857931,
+      "sha256": "687ec326d0f0c429a986a9347431f6645f3fa19c58ec9c609db345fafe997dc1",
+      "matches_193feab_windows_output": true
+    },
+    {
+      "file": "node_stability.csv",
+      "bytes": 176886,
+      "sha256": "095e358c75f6fc750494f5d887e7055f32a011fe1e1f5e3c6151ac9ac83d1e65",
+      "matches_193feab_windows_output": true
+    },
+    {
+      "file": "nodes_roles.csv",
+      "bytes": 1392999,
+      "sha256": "49912ccfeaeaa31f6e986b48f14ec788af632a67959859a9136bd05a1b4d626f",
+      "matches_193feab_windows_output": true
+    },
+    {
+      "file": "resilience.csv",
+      "bytes": 1008,
+      "sha256": "9f22a7e19b285f20305114b0a029691e807ec5b122205124b3902aae690636f6",
+      "matches_193feab_windows_output": true
+    },
+    {
+      "file": "sensitivity.csv",
+      "bytes": 2156,
+      "sha256": "27ba0ed03f588633e0c18e49f9ca74ebdd5c1161f85b8b1a273cea90f5e8884c",
+      "matches_193feab_windows_output": true
+    },
+    {
+      "file": "top_nodes.csv",
+      "bytes": 50034,
+      "sha256": "3e725b9eabf5352e54ac090d4da22560cb00bb458e69712baff98ed26f71c49b",
+      "matches_193feab_windows_output": true
+    }
+  ],
+  "limitations": [
+    "Production code, README, thresholds and outputs tracked by Git were not changed.",
+    "Browser visual inspection and platform submission are not confirmed by this report.",
+    "Any future optimization must retain directed flow semantics, isolated seeds and the depth-4 terminal exclusion."
+  ]
+}
