@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10" fill="#70e0b1"/></marker></defs>
+  <rect width="1600" height="900" fill="#0b1019"/>
+  <g font-family="Arial, sans-serif" fill="#edf3fc">
+    <text x="80" y="98" font-size="25" fill="#70e0b1" letter-spacing="4">ZHERIMAI · HACKALEM AI</text>
+    <text x="80" y="181" font-size="54" font-weight="bold">Кого проверить первым — и почему?</text>
+    <text x="80" y="237" font-size="25" fill="#a7b6ca">Объяснимая структура переводов. Любой gid → правило → числа → связи.</text>
+    <g fill="#141f2d" stroke="#314158" stroke-width="2">
+      <rect x="80" y="335" width="295" height="286" rx="20"/>
+      <rect x="460" y="335" width="295" height="286" rx="20"/>
+      <rect x="840" y="335" width="295" height="286" rx="20"/>
+      <rect x="1220" y="335" width="295" height="286" rx="20"/>
+    </g>
+    <g stroke="#70e0b1" stroke-width="3" marker-end="url(#arrow)">
+      <path d="M389 473 H441"/><path d="M769 473 H821"/><path d="M1149 473 H1201"/>
+    </g>
+    <g font-size="28" font-weight="bold"><text x="105" y="388">01 / Данные</text><text x="485" y="388">02 / Метрики</text><text x="865" y="388">03 / Гипотезы</text><text x="1245" y="388">04 / Проверка</text></g>
+    <g font-size="23" fill="#b2c1d4">
+      <text x="105" y="450">3 исходных parquet</text><text x="105" y="493">Все узлы и изоляты</text><text x="105" y="536">Проверка сумм и пар</text><text x="105" y="579">Без обогащения</text>
+      <text x="485" y="450">Направления и суммы</text><text x="485" y="493">Достижимость от seed</text><text x="485" y="536">Даты, циклы, связи</text><text x="485" y="579">Louvain-сообщества</text>
+      <text x="865" y="450">6 формальных ролей</text><text x="865" y="493">Пороги и приоритет</text><text x="865" y="536">Числовое обоснование</text><text x="865" y="579">Ограничения видимости</text>
+      <text x="1245" y="450">3 обязательных CSV</text><text x="1245" y="493">Карта и карточка gid</text><text x="1245" y="536">Топ-50 для аналитика</text><text x="1245" y="579">Запрос недостающих</text>
+    </g>
+    <rect x="80" y="688" width="1435" height="90" rx="14" fill="#183029"/>
+    <text x="108" y="742" font-size="26" fill="#95efc7">Локально · без ключей · фиксированные правила · проверка всех результатов одной командой</text>
+    <text x="80" y="840" font-size="22" fill="#93a5be">4-е колено — граница наблюдения. Роль и приоритет — основания для проверки, а не вывод о виновности.</text>
+  </g>
+</svg>
