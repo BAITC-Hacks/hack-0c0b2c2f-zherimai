@@ -55,7 +55,6 @@ function setup(){
   $('statNodes').textContent=money(nodes.length);$('statEdges').textContent=money(edges.length);$('statVolume').textContent=short(edges.reduce((a,e)=>a+(Number(e.sum_kzt)||0),0));$('statClusters').textContent=money(clusters.size-(clusters.has('0')?1:0));$('isolateNote').textContent=clusters.has('0')?'+ изоляты':'';$('statTruncated').textContent=money(nodes.filter(truncated).length);
   clusterIds.forEach(id=>{const c=clusters.get(id),o=el('option','',`#${id} · ${money(c?c.n_nodes:nodes.filter(n=>n.cluster_id===id).length)} узлов`);o.value=id;$('clusterFilter').append(o)});
   Object.entries(roleNames).forEach(([r,label])=>{const o=el('option','',label);o.value=r;$('roleFilter').append(o)});
-  if(sorted.length){selected=sorted[0].gid;renderCard(sorted[0])}
   renderLegend();renderTable();rebuild();
 }
 function renderLegend(){const box=$('legend');box.replaceChildren();const entries=colorMode==='role'?Object.entries(roleNames).map(([k,v])=>[v,roleColors[k]]):clusterIds.map(id=>['Кластер '+id,clusterColors.get(id)]);entries.forEach(([name,color])=>{const item=el('span','legend-item'),dot=el('i','dot');dot.style.background=color;item.append(dot,el('span','',name));box.append(item)});const seed=el('span','legend-item','○ Обводка — seed');box.append(seed)}
