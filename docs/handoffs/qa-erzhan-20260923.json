@@ -1,0 +1,305 @@
+{
+  "checked_main_commit": "cc2c0b0589a3f818c0ad37d548de219ddfb62da9",
+  "checked_ui_commit": "d553d83fb1d15b9d6db3517d4dc3cb5102d02139",
+  "environment": {
+    "os": "Windows 11 build 26200 AMD64",
+    "python": "3.13.15",
+    "node": "24.19.0"
+  },
+  "main": {
+    "commit": "cc2c0b0",
+    "python": "3.13.15 (tags/v3.13.15:4061bc4, Aug  5 2026, 13:05:39) [MSC v.1944 64 bit (AMD64)]",
+    "steps": [
+      {
+        "step": "first",
+        "exit_code": 0,
+        "wall_seconds": 3.4308
+      },
+      {
+        "step": "validate",
+        "exit_code": 0,
+        "wall_seconds": 1.1965
+      },
+      {
+        "step": "audit",
+        "exit_code": 0,
+        "wall_seconds": 2.1012
+      },
+      {
+        "step": "repeat",
+        "exit_code": 0,
+        "wall_seconds": 3.6406
+      }
+    ],
+    "pipeline_seconds": [
+      3.2116,
+      3.3704
+    ],
+    "csv": [
+      {
+        "file": "clusters.csv",
+        "repeat_identical": true,
+        "tracked_identical": true,
+        "sha256": "8b68497baedc29197f11cfcdf74fecd163a2ee05e6e7387800b1a9395974ef97"
+      },
+      {
+        "file": "data_requests.csv",
+        "repeat_identical": true,
+        "tracked_identical": true,
+        "sha256": "4f57b91ab469f61c6b896cbc6c439ec0cdfc9aa2cdcd02ea885430e128846151"
+      },
+      {
+        "file": "node_stability.csv",
+        "repeat_identical": true,
+        "tracked_identical": true,
+        "sha256": "095e358c75f6fc750494f5d887e7055f32a011fe1e1f5e3c6151ac9ac83d1e65"
+      },
+      {
+        "file": "nodes_roles.csv",
+        "repeat_identical": true,
+        "tracked_identical": true,
+        "sha256": "49912ccfeaeaa31f6e986b48f14ec788af632a67959859a9136bd05a1b4d626f"
+      },
+      {
+        "file": "resilience.csv",
+        "repeat_identical": true,
+        "tracked_identical": true,
+        "sha256": "9f22a7e19b285f20305114b0a029691e807ec5b122205124b3902aae690636f6"
+      },
+      {
+        "file": "sensitivity.csv",
+        "repeat_identical": true,
+        "tracked_identical": true,
+        "sha256": "27ba0ed03f588633e0c18e49f9ca74ebdd5c1161f85b8b1a273cea90f5e8884c"
+      },
+      {
+        "file": "top_nodes.csv",
+        "repeat_identical": true,
+        "tracked_identical": true,
+        "sha256": "3e725b9eabf5352e54ac090d4da22560cb00bb458e69712baff98ed26f71c49b"
+      }
+    ],
+    "html": {
+      "repeat_identical": true,
+      "tracked_identical": true
+    },
+    "core_vs_prior_version": {
+      "gid_equal": true,
+      "role": true,
+      "base_role": true,
+      "role_score": true,
+      "priority_score": true,
+      "cluster_id": true
+    },
+    "audit": {
+      "input_nodes": 2248,
+      "input_transactions": 4840,
+      "mismatches": {},
+      "max_temporal_share_error": 4.972966483052232e-13,
+      "evidence_max_length": 124,
+      "evidence_at_200_chars": 0,
+      "top20_coordinators": 9,
+      "top20_unobserved_funding": 14,
+      "top20_both_collection_and_distribution": 10,
+      "top20_in_directed_cycle": 18,
+      "isolated_nodes_preserved": 19,
+      "terminals_at_depth4": 0
+    }
+  },
+  "unittest": {
+    "tests": 49,
+    "passed": 49,
+    "runtime_seconds": 1.614,
+    "resource_warning_as_error": true,
+    "http_mocked": true
+  },
+  "validator": {
+    "validator_sha256": "8e7067eada324951cf6de9aae3e0707b2195a5d94f25f854a7f44b7b228c0832",
+    "bad_pass_count": 6,
+    "source_outputs_unchanged": {
+      "snapshot_data": true,
+      "snapshot_out": true,
+      "original_out": true,
+      "original_qa": true,
+      "old_probe_protocol": true
+    },
+    "cases": [
+      {
+        "case": "baseline",
+        "changes": [],
+        "expected": "PASS",
+        "actual": "PASS"
+      },
+      {
+        "case": "depth_only",
+        "changes": [
+          {
+            "gid": "100000000018102100",
+            "column": "depth",
+            "before": 4,
+            "after": 3
+          }
+        ],
+        "expected": "REJECT",
+        "actual": "PASS"
+      },
+      {
+        "case": "depth4_terminal_control",
+        "changes": [
+          {
+            "gid": "100000000018102100",
+            "column": "role",
+            "before": "peripheral",
+            "after": "terminal"
+          }
+        ],
+        "error": "ValueError: Depth-4 false terminal",
+        "expected": "REJECT",
+        "actual": "REJECT"
+      },
+      {
+        "case": "depth4_terminal_masked",
+        "changes": [
+          {
+            "gid": "100000000018102100",
+            "column": "depth",
+            "before": 4,
+            "after": 3
+          },
+          {
+            "gid": "100000000018102100",
+            "column": "role",
+            "before": "peripheral",
+            "after": "terminal"
+          }
+        ],
+        "expected": "REJECT",
+        "actual": "PASS"
+      },
+      {
+        "case": "isolate_degree_only",
+        "changes": [
+          {
+            "gid": "100000000456947100",
+            "column": "in_deg",
+            "before": 0,
+            "after": 1
+          }
+        ],
+        "expected": "REJECT",
+        "actual": "PASS"
+      },
+      {
+        "case": "isolate_role_control",
+        "changes": [
+          {
+            "gid": "100000000456947100",
+            "column": "role",
+            "before": "peripheral",
+            "after": "consolidator"
+          }
+        ],
+        "error": "ValueError: Isolated node role",
+        "expected": "REJECT",
+        "actual": "REJECT"
+      },
+      {
+        "case": "isolate_role_masked",
+        "changes": [
+          {
+            "gid": "100000000456947100",
+            "column": "in_deg",
+            "before": 0,
+            "after": 1
+          },
+          {
+            "gid": "100000000456947100",
+            "column": "role",
+            "before": "peripheral",
+            "after": "consolidator"
+          }
+        ],
+        "expected": "REJECT",
+        "actual": "PASS"
+      },
+      {
+        "case": "seed_swap_same_cluster",
+        "changes": [
+          {
+            "gid": "100000001732159100",
+            "column": "is_seed",
+            "before": true,
+            "after": false
+          },
+          {
+            "gid": "100000000011452100",
+            "column": "is_seed",
+            "before": false,
+            "after": true
+          }
+        ],
+        "expected": "REJECT",
+        "actual": "PASS"
+      },
+      {
+        "case": "seed_transit_control",
+        "changes": [
+          {
+            "gid": "100000001732159100",
+            "column": "role",
+            "before": "peripheral",
+            "after": "transit"
+          }
+        ],
+        "error": "ValueError: Seed balance used for transit",
+        "expected": "REJECT",
+        "actual": "REJECT"
+      },
+      {
+        "case": "seed_transit_masked",
+        "changes": [
+          {
+            "gid": "100000001732159100",
+            "column": "is_seed",
+            "before": true,
+            "after": false
+          },
+          {
+            "gid": "100000000011452100",
+            "column": "is_seed",
+            "before": false,
+            "after": true
+          },
+          {
+            "gid": "100000001732159100",
+            "column": "role",
+            "before": "peripheral",
+            "after": "transit"
+          }
+        ],
+        "expected": "REJECT",
+        "actual": "PASS"
+      }
+    ]
+  },
+  "ui": {
+    "pipeline_seconds": 3.3279,
+    "csv_count": 5,
+    "csv_match_commit_archive": true,
+    "all_node_and_edge_gids_match_parquet": true,
+    "syntax_check": "PASS",
+    "dom_scenarios_passed": 8,
+    "visual_check": false,
+    "missing_expanded_fields": [
+      "matched_roles",
+      "next_request",
+      "temporal_seed_reach_strict_days",
+      "temporal_seed_reach_upper",
+      "cluster_stability",
+      "cluster_stability_scope",
+      "priority_top20_frequency",
+      "priority_min_rank",
+      "priority_max_rank"
+    ]
+  }
+}
