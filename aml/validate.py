@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from .load import require
 from .roles import ROLES
+from .validate_diagnostics import validate_diagnostics
 
 
 def validate_outputs(data_dir: Path, out_dir: Path, max_seconds=300):
@@ -51,6 +52,7 @@ def validate_outputs(data_dir: Path, out_dir: Path, max_seconds=300):
         require(abs(c.sum_kzt_internal - internal.get(c.cluster_id, 0.)) < .02, "Incorrect internal turnover")
         require(all(int(g) in set(members.gid) for g in str(c.top_gids).split(";")), "Invalid cluster top gids")
     require((out_dir / "network.html").is_file(), "Missing offline network viewer")
+    validate_diagnostics(nodes, out_dir)
     report = json.loads((out_dir / "report.json").read_text())
     require(0 <= report["runtime_seconds"] < max_seconds, "Pipeline exceeds time limit")
     require(report["n_nodes"] == len(source), "Report count mismatch")
