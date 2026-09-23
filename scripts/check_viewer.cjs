@@ -24,9 +24,13 @@ const env={document:{getElementById:id=>{assert(elements.has(id),id);return elem
 vm.runInNewContext(script,env,{timeout:10000});
 const api=env.window.ZHERIMAI,card=elements.get('nodeCard');
 const nodes=[...data.nodes].sort((a,b)=>b.priority_score-a.priority_score);
-assert.strictEqual(api.selected,nodes[0].gid,'Initial selection must be top-1');
+assert.strictEqual(api.selected,null,'Initial overview must not select a client');
 assert.strictEqual(api.mode,'overview','Initial graph must stay in overview');
-assert(card.textContent.includes(nodes[0].gid));
+assert.strictEqual(api.visibleNodeIds.length,data.nodes.length,'Initial overview includes every client');
+assert.strictEqual(elements.get('gidSearch').value,'','Initial search stays empty');
+assert.strictEqual(elements.get('egoButton').disabled,true,'Node view needs an explicit selection');
+assert.strictEqual(elements.get('hopSelect').disabled,true,'Hop control needs an explicit selection');
+assert(elements.get('topRows').childNodes.every(row=>!row.className.split(/\s+/).includes('selected')),'No initial selected row');
 assert.strictEqual(elements.get('cardHeading').focusCalls.length,0,'Initial overview does not steal focus');
 assert.strictEqual(elements.get('cardHeading').scrollCalls.length,0,'Initial overview does not scroll');
 function assertPriorityPosition(){
@@ -39,6 +43,12 @@ function assertPriorityPosition(){
  const generalMetricsIndex=children.findIndex(e=>e.className==='metrics'&&e.childNodes.some(m=>m.childNodes?.[0]?.textContent==='Приоритет проверки'));
  assert(generalMetricsIndex>headingIndex,'Priority explanation must precede general metrics');
 }
+elements.get('firstNode').click();
+assert.strictEqual(api.selected,nodes[0].gid,'First candidate is selected only after a click');
+assert.strictEqual(api.mode,'ego','Explicit first-candidate selection opens its connections');
+assert.strictEqual(elements.get('gidSearch').value,nodes[0].gid);
+assert.strictEqual(elements.get('egoButton').disabled,false);
+assert(card.textContent.includes(nodes[0].gid));
 assertPriorityPosition();
 
 // These two counterexamples must explain why the higher-priority coordinator rule failed.
@@ -104,7 +114,7 @@ viewportWidth=1200;api.selectNode(nodes[0].gid);assert.strictEqual(heading.focus
 for(const csv of ['nodes_roles.csv','clusters.csv','top_nodes.csv'])assert(html.includes(`href="${csv}" download`));
 assert(!/\.header-right(?:\s+\.exports)?\{[^}]*display:\s*none/.test(html),'Narrow viewport CSS must not hide CSV links with their parent');
 assert(data.nodes.every(n=>typeof n.gid==='string'));assert(data.edges.every(e=>typeof e.src==='string'&&typeof e.dst==='string'));
-console.log('PASS: top-1 initial card, overview mode, priority directly after evidence with no duplicates; JavaScript parses and initializes; 9 real node cards/downloads covering all six roles; cycle/shared limits/base role in TXT; filtered-selection warning/reset; narrow focus/scroll calls; distributor/peripheral coordinator counterexamples; all roles expose structural neighbors/betweenness and rule precedence; string gids; static/temporal reach; all matched rules; exact next request; isolate no stability claim; rank sensitivity; priority contributions/seed discount; unknown gid; 2 hops; transit filter.');
+console.log('PASS: initial overview without selection, manual first-candidate selection, priority directly after evidence with no duplicates; JavaScript parses and initializes; 9 real node cards/downloads covering all six roles; cycle/shared limits/base role in TXT; filtered-selection warning/reset; narrow focus/scroll calls; distributor/peripheral coordinator counterexamples; all roles expose structural neighbors/betweenness and rule precedence; string gids; static/temporal reach; all matched rules; exact next request; isolate no stability claim; rank sensitivity; priority contributions/seed discount; unknown gid; 2 hops; transit filter.');
 function ask(q){elements.get('assistantQuestion').value=q;elements.get('assistantForm').listeners.submit({preventDefault(){}});return elements.get('assistantAnswer').textContent}
 function unchanged(q,expected){const before={selected:api.selected,mode:api.mode,card:card.textContent,visible:JSON.stringify(api.visibleNodeIds)};const answer=ask(q);assert(expected.test(answer),`${q}: ${answer}`);assert.strictEqual(api.selected,before.selected,q);assert.strictEqual(api.mode,before.mode,q);assert.strictEqual(card.textContent,before.card,q);assert.strictEqual(JSON.stringify(api.visibleNodeIds),before.visible,q);assert.strictEqual(elements.get('assistantAnswer').childNodes.length,0,'No misleading answer cards: '+q)}
 const gid=nodes[0].gid,other=nodes[1].gid,unknown='999999999999999999';assert(!data.nodes.some(n=>n.gid===unknown));
