@@ -22,7 +22,7 @@ elements.get('graphData').textContent=JSON.stringify(data);
 let downloaded,viewportWidth=1200;
 const env={document:{getElementById:id=>{assert(elements.has(id),id);return elements.get(id)},createElement:tag=>new Element(tag),createTextNode:s=>({textContent:s})},window:{devicePixelRatio:1,matchMedia:query=>({matches:query==='(max-width:850px)'&&viewportWidth<=850})},location:{hash:''},requestAnimationFrame:()=>1,ResizeObserver:class{observe(){}},Blob:class{constructor(parts){this.parts=parts}},URL:{createObjectURL:b=>{downloaded=b.parts.join('');return'blob:checked'},revokeObjectURL(){}},setTimeout:()=>1};
 vm.runInNewContext(script,env,{timeout:10000});
-const api=env.window.ZHERIMAI,card=elements.get('nodeCard');
+const api=env.window.DALAAI,card=elements.get('nodeCard');
 const nodes=[...data.nodes].sort((a,b)=>b.priority_score-a.priority_score);
 assert.strictEqual(api.selected,null,'Initial overview must not select a client');
 assert.strictEqual(api.mode,'overview','Initial graph must stay in overview');
