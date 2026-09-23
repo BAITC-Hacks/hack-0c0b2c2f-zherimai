@@ -277,3 +277,7 @@ CLI-помощник работает локально без ключа:
 - Первичные проекты: [pandas](https://github.com/pandas-dev/pandas), [Apache Arrow](https://github.com/apache/arrow), [NetworkX](https://github.com/networkx/networkx), [NumPy](https://github.com/numpy/numpy), [SciPy](https://github.com/scipy/scipy), [dateutil](https://github.com/dateutil/dateutil), [six](https://github.com/benjaminp/six). Основные лицензии соответственно BSD-3-Clause, Apache-2.0, BSD-3-Clause, BSD-3-Clause, BSD-3-Clause, Apache-2.0/BSD-3-Clause и MIT; бинарные сборки могут содержать компоненты с дополнительными лицензиями, перечисленными в их metadata/LICENSE.
 
 Зоны работы трёх участников: **A — пайплайн и роли; B — экран; C — проверки, документация и демо**. Это распределение модулей, не утверждение об авторстве конкретного человека. Фактическое авторство сохраняется в Git; каждый участник проверяет и коммитит свой реальный вклад без подмены имени, email и времени. Статусы и пакеты для раздельных коммитов — в [TASKS.md](TASKS.md).
+
+
+
+
