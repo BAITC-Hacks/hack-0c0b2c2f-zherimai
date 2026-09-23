@@ -1,0 +1,246 @@
+{
+  "commit": "ca8b43d696dfb8ea18d4f8b5b23f93ee59973d3d",
+  "python": "3.13.15",
+  "steps": [
+    {
+      "step": "guard-self-test",
+      "exit_code": 0,
+      "wall_seconds": 0.0498
+    },
+    {
+      "step": "install",
+      "exit_code": 0,
+      "wall_seconds": 39.942
+    },
+    {
+      "step": "pip-check",
+      "exit_code": 0,
+      "wall_seconds": 0.4845
+    },
+    {
+      "step": "inventory",
+      "exit_code": 0,
+      "wall_seconds": 0.3189
+    },
+    {
+      "step": "first",
+      "exit_code": 0,
+      "wall_seconds": 5.1141
+    },
+    {
+      "step": "validate",
+      "exit_code": 0,
+      "wall_seconds": 0.876
+    },
+    {
+      "step": "audit",
+      "exit_code": 0,
+      "wall_seconds": 2.3915
+    },
+    {
+      "step": "unittest",
+      "exit_code": 0,
+      "wall_seconds": 2.4275
+    },
+    {
+      "step": "repeat",
+      "exit_code": 0,
+      "wall_seconds": 3.2561
+    }
+  ],
+  "installed": [
+    {
+      "name": "networkx",
+      "version": "3.7"
+    },
+    {
+      "name": "numpy",
+      "version": "2.5.3"
+    },
+    {
+      "name": "pandas",
+      "version": "3.0.6"
+    },
+    {
+      "name": "pip",
+      "version": "26.2.1"
+    },
+    {
+      "name": "pyarrow",
+      "version": "25.0.1"
+    },
+    {
+      "name": "python-dateutil",
+      "version": "2.9.0.post0"
+    },
+    {
+      "name": "scipy",
+      "version": "1.18.1"
+    },
+    {
+      "name": "six",
+      "version": "1.17.0"
+    },
+    {
+      "name": "tzdata",
+      "version": "2026.4"
+    }
+  ],
+  "runtime_seconds": [
+    4.9106,
+    3.0308
+  ],
+  "csv": [
+    {
+      "file": "clusters.csv",
+      "repeat_identical": true,
+      "commit_identical": true
+    },
+    {
+      "file": "data_requests.csv",
+      "repeat_identical": true,
+      "commit_identical": true
+    },
+    {
+      "file": "node_stability.csv",
+      "repeat_identical": true,
+      "commit_identical": true
+    },
+    {
+      "file": "nodes_roles.csv",
+      "repeat_identical": true,
+      "commit_identical": true
+    },
+    {
+      "file": "resilience.csv",
+      "repeat_identical": true,
+      "commit_identical": true
+    },
+    {
+      "file": "sensitivity.csv",
+      "repeat_identical": true,
+      "commit_identical": true
+    },
+    {
+      "file": "top_nodes.csv",
+      "repeat_identical": true,
+      "commit_identical": true
+    }
+  ],
+  "html": {
+    "repeat_identical": true,
+    "commit_identical": true
+  },
+  "audit_mismatches": {},
+  "network_guard": "Python audit hooks in each target process, not an OS firewall",
+  "platform": "Windows 11 AMD64",
+  "environment": {
+    "fresh_venv": true,
+    "system_site_packages": false,
+    "preinstall_packages": [
+      "pip==26.2.1"
+    ],
+    "same_physical_machine": true
+  },
+  "installation_flags": [
+    "--isolated",
+    "--no-index",
+    "--no-cache-dir",
+    "--disable-pip-version-check"
+  ],
+  "tests": {
+    "clean_source": {
+      "passed": 72,
+      "seconds": 1.608
+    },
+    "new_runner_only": {
+      "passed": 5,
+      "seconds": 0.404
+    },
+    "combined_in_fresh_venv": {
+      "passed": 77,
+      "seconds": 2.087
+    },
+    "resourcewarning_is_error": true
+  },
+  "blocked_python_socket_attempts": {
+    "guard_self_test": 1,
+    "real_steps": 0
+  },
+  "kit": {
+    "file": "zherimai-windows-py313-ca8b43d.zip",
+    "bytes": 89691376,
+    "sha256": "53d9a91f3b08b419daa91982b87a4197d84c813b80a313fb364e64cc4739917d",
+    "entries": 81,
+    "verified": true
+  },
+  "package": {
+    "source_commit": "ca8b43d696dfb8ea18d4f8b5b23f93ee59973d3d",
+    "platform": "Windows AMD64",
+    "requires_preinstalled": "CPython 3.13 (verified with 3.13.15)",
+    "source_archive_sha256": "44e85b84ad9e36b3592215caf348e11dfa770f59fed16963bd10ad15c1785ba0",
+    "source_exclusions": [
+      "out/"
+    ],
+    "prepared_outputs_included": false,
+    "qa_instrumentation": [
+      {
+        "file": "tests/run_without_network.py",
+        "sha256": "f8407c57ebae44bba9305591dd0e814addaceba287742647b31f64421498dd51"
+      },
+      {
+        "file": "tests/test_offline_runner.py",
+        "sha256": "fa5fc42a408420000ce4fb1814f8c1d7583e4abd7e8056c3e5ec251a2e628f3f"
+      }
+    ],
+    "wheelhouse": [
+      {
+        "file": "networkx-3.7-py3-none-any.whl",
+        "bytes": 2142205,
+        "sha256": "e3fd2c13a7814cee3746340d8d7f8598a67f16a58bf47fb7f8793fab6efca1b0"
+      },
+      {
+        "file": "numpy-2.5.3-cp313-cp313-win_amd64.whl",
+        "bytes": 12560965,
+        "sha256": "71cad2b2a7451ab79d8f5e71b453485b6775963d5cf794179144a7463fe6e8ec"
+      },
+      {
+        "file": "pandas-3.0.6-cp313-cp313-win_amd64.whl",
+        "bytes": 9638092,
+        "sha256": "f3ce8a6968045481e91a3990e797e348ce13db45ee164a7095bbc824e26c09dd"
+      },
+      {
+        "file": "pyarrow-25.0.1-cp313-cp313-win_amd64.whl",
+        "bytes": 27870159,
+        "sha256": "31e49a7888fcdf3a835da33ae777f6bb9a866334e5a789282fc26dcf426f7f15"
+      },
+      {
+        "file": "python_dateutil-2.9.0.post0-py2.py3-none-any.whl",
+        "bytes": 229892,
+        "sha256": "a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"
+      },
+      {
+        "file": "scipy-1.18.1-cp313-cp313-win_amd64.whl",
+        "bytes": 36622841,
+        "sha256": "559ed65f60c1af5a03f3912605a1b5114f522c7c32fb23c3376ae8f03219fe28"
+      },
+      {
+        "file": "six-1.17.0-py2.py3-none-any.whl",
+        "bytes": 11050,
+        "sha256": "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"
+      },
+      {
+        "file": "tzdata-2026.4-py2.py3-none-any.whl",
+        "bytes": 347494,
+        "sha256": "c2169a8b0a7a5e9674da5a135ccdfb2b3e671b333ed9fed17b41f73c34476e81"
+      }
+    ]
+  },
+  "limits": [
+    "Python 3.13 preinstalled",
+    "Not an OS-level network disconnection test",
+    "Native networking and unwrapped children not covered",
+    "No Linux/macOS or second physical machine checked",
+    "Validator and UI integration remain separate"
+  ]
+}
