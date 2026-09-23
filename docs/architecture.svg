@@ -2,7 +2,7 @@
   <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10" fill="#70e0b1"/></marker></defs>
   <rect width="1600" height="900" fill="#0b1019"/>
   <g font-family="Arial, sans-serif" fill="#edf3fc">
-    <text x="80" y="98" font-size="25" fill="#70e0b1" letter-spacing="4">ZHERIMAI · HACKALEM AI</text>
+    <text x="80" y="98" font-size="25" fill="#70e0b1" letter-spacing="4">DalaAI · HACKALEM AI</text>
     <text x="80" y="181" font-size="54" font-weight="bold">Кого проверить первым — и почему?</text>
     <text x="80" y="237" font-size="25" fill="#a7b6ca">Объяснимая структура переводов. Любой gid → правило → числа → связи.</text>
     <g fill="#141f2d" stroke="#314158" stroke-width="2">

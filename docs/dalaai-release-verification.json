@@ -1,0 +1,53 @@
+{
+  "source_base": "0629ef608ff2a12f83abb301c46a2b76ba76e4bc plus DalaAI branding and README edits",
+  "environment": "macOS ARM64, isolated downloaded CPython 3.13.15, previously installed pinned dependencies",
+  "source_copy_excludes": [
+    "out",
+    ".venv",
+    ".git"
+  ],
+  "steps": {
+    "run": {
+      "seconds": 4.79,
+      "exit_code": 0
+    },
+    "validate": {
+      "seconds": 0.7486,
+      "exit_code": 0
+    },
+    "tests": {
+      "seconds": 4.5342,
+      "exit_code": 0
+    },
+    "audit": {
+      "seconds": 1.8606,
+      "exit_code": 0
+    },
+    "dom": {
+      "seconds": 0.9917,
+      "exit_code": 0
+    }
+  },
+  "limits": "Fresh source directory, reused verified isolated Python environment; Python audit hooks in guarded parent processes only, not an OS firewall or a visual browser check",
+  "test_count": 98,
+  "python_socket_attempts_reported": 0,
+  "runtime_seconds": 4.5725,
+  "files_sha256": {
+    "clusters.csv": "202688cd717db8a5ef28fc5e054269ed5d019213ec9eaba2ede0c2c4e796bdcb",
+    "data_requests.csv": "4eccacf3d4f78e5dd047e42b2889591c2866db8aa8726d93b3e4e46d151bc593",
+    "network.html": "a8ce3ddea00b6bbdec8ede55bf5b2f6ebb1f89a7f83b8b00fea83423b694a706",
+    "node_stability.csv": "869cd7b19e193b3fd825c6cb5bf406d211d4670eabd7406f2df4f16eb294294d",
+    "nodes_roles.csv": "62302a2c070b46fd5aa22af80a916ce3a5404d6b918ae1bc252b66458cecfe4e",
+    "resilience.csv": "1f62c07b8374c216cacde99a1746dc8f1eaef5ac31536b6a3b342d4b5d69caf2",
+    "sensitivity.csv": "e8e5dd362815f84af7992113a6ac5a4b78f43c3066de32bab847206a46af6858",
+    "top_nodes.csv": "ffe2e8be5b05195682a380817683ecd17d0fddaa91a21f18b38a4fac07e2998e"
+  },
+  "source_sha256": {
+    "aml/viewer_template.html": "cf17947b16223eac11156f8ebca16f0c5c2fb919b934bc05e176469a4fba1607",
+    "scripts/check_viewer.cjs": "4432cac4535d8d280bf07ba206865362aa880a55ba5c828305858eabe17865a6",
+    "tests/run_without_network.py": "f8407c57ebae44bba9305591dd0e814addaceba287742647b31f64421498dd51",
+    "tests/test_viewer.py": "7955b777584227c0d6f1115f4eb8085cfde1b85efe713513b22962df3d13befa",
+    "aml/validate.py": "3e991847efcf0c38e91fff583e4b65d006b7e7fab339373e6d4b6e962a1fb629",
+    "run.py": "6650533fb905c567feed8e111fc2e28619f7d8c1cc14e9ae7cdc50e75b0da2db"
+  }
+}
