@@ -63,13 +63,13 @@ def main():
               "packages": {p: importlib.metadata.version(p) for p in ("pandas", "pyarrow", "networkx", "numpy", "scipy")},
               "input_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(args.data.glob("*.parquet"))},
               "limits": ["Observed internal-bank July 2026 transfers >=5000 KZT only", "Depth-4 outgoing flows not collected", "Scores are rule strength and review priority, not crime probabilities", "Date-only temporal compatibility is not provenance of funds", "No labelled ground truth; precision/recall cannot be claimed"]}
-    (args.out / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+    (args.out / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     result = validate_outputs(args.data, args.out)
     # Include validation time in the deadline check as well.
     report["runtime_seconds"] = round(time.perf_counter() - started, 4)
     if report["runtime_seconds"] >= 300:
         raise RuntimeError("Full pipeline exceeded 5 minutes")
-    (args.out / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+    (args.out / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({**result, "runtime_seconds": report["runtime_seconds"], "role_counts": report["role_counts"]}, ensure_ascii=False, indent=2))
     print(f"Open {args.out / 'network.html'} in any modern browser (no server, no internet).")
 

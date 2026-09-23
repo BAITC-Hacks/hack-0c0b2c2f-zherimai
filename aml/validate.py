@@ -86,7 +86,7 @@ def validate_outputs(data_dir: Path, out_dir: Path, max_seconds=300):
         require(all(int(g) in set(members.gid) for g in str(c.top_gids).split(";")), "Invalid cluster top gids")
     require((out_dir / "network.html").is_file(), "Missing offline network viewer")
     validate_diagnostics(nodes, out_dir)
-    report = json.loads((out_dir / "report.json").read_text())
+    report = json.loads((out_dir / "report.json").read_text(encoding="utf-8"))
     require(0 <= report["runtime_seconds"] < max_seconds, "Pipeline exceeds time limit")
     require(report["n_nodes"] == len(source), "Report count mismatch")
     return {"status": "PASS", "n_nodes": len(nodes), "n_clusters": len(clusters), "n_top": len(top), "runtime_seconds": report["runtime_seconds"]}

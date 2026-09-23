@@ -169,9 +169,9 @@ def main():
     args = parser.parse_args()
     result = analyze(args.data)
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n")
+    args.out.write_text(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
     args.markdown.parent.mkdir(parents=True, exist_ok=True)
-    args.markdown.write_text(markdown(result))
+    args.markdown.write_text(markdown(result), encoding="utf-8")
     print(json.dumps({k:v for k,v in result.items() if k in ["counts", "sanity", "threshold_counts", "proposed_role_counts"]}, ensure_ascii=False, indent=2))
 
 
