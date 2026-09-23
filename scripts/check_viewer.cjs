@@ -38,12 +38,27 @@ function assertPriorityPosition(){
 }
 assertPriorityPosition();
 
-const cases=[nodes[0],data.nodes.find(n=>n.cluster_stability_scope==='isolate_not_assessed'),data.nodes.find(n=>n.depth===4),data.nodes.find(n=>n.role==='transit'),data.nodes.find(n=>n.is_seed&&n.out_deg>0)];
+// These two counterexamples must explain why the higher-priority coordinator rule failed.
+// Select by data conditions, not by preselected opaque gid.
+const thresholds=data.thresholds;
+const distributorCounter=data.nodes.find(n=>n.role==='distributor'&&n.in_deg>0&&n.out_deg>0&&n.seed_reach>=thresholds.coordinator_seed_reach&&n.betweenness>=thresholds.coordinator_betweenness_actual&&n.structural_neighbors<thresholds.coordinator_structural_neighbors);
+const peripheralCounter=data.nodes.find(n=>n.role==='peripheral'&&n.in_deg>0&&n.out_deg>0&&n.seed_reach>=thresholds.coordinator_seed_reach&&n.structural_neighbors>=thresholds.coordinator_structural_neighbors&&n.betweenness<thresholds.coordinator_betweenness_actual);
+assert(distributorCounter,'Real distributor counterexample with insufficient structural neighbors');
+assert(peripheralCounter,'Real peripheral counterexample below the q99 threshold');
+const cases=[nodes[0],data.nodes.find(n=>n.cluster_stability_scope==='isolate_not_assessed'),data.nodes.find(n=>n.depth===4),data.nodes.find(n=>n.role==='transit'),data.nodes.find(n=>n.is_seed&&n.out_deg>0),distributorCounter,peripheralCounter];
+const roleOrderText='Порядок: Координатор → Консолидатор → Распределитель → Транзитный → Получатель → Периферийный.';
 const nf=new Intl.NumberFormat('ru-RU');
 function descendants(e){return[e,...e.childNodes.flatMap(descendants)]}
 function metric(label){const m=descendants(card).find(e=>e.className==='metric'&&e.childNodes[0].textContent===label);assert(m,'Missing metric '+label);return m.childNodes[1].textContent}
 for(const n of cases){
  assert(api.selectNode(n.gid));assertPriorityPosition();assert.strictEqual(api.selected,n.gid);assert.strictEqual(typeof n.gid,'string');assert(api.visibleNodeIds.includes(n.gid));
+ assert.strictEqual(metric('Узлы сбора/рассылки рядом'),nf.format(n.structural_neighbors));
+ assert.strictEqual(metric('Betweenness'),Number(n.betweenness).toFixed(6));
+ assert(card.textContent.includes(roleOrderText));
+ assert(card.textContent.includes(`betweenness ≥ ${Number(thresholds.coordinator_betweenness_actual).toFixed(6)} (q99) и > 0.`));
+ assert(card.textContent.includes(`соседей сбора/рассылки ≥ ${thresholds.coordinator_structural_neighbors}`));
+ assert(card.textContent.includes(`seed по структуре без дат ≥ ${thresholds.coordinator_seed_reach}`));
+ if(n.role!=='coordinator')assert(card.textContent.includes('Проверка координатора:'));
  assert.strictEqual(metric('Seed по структуре · без дат'),nf.format(n.seed_reach));
  assert.strictEqual(metric('Seed · только следующие дни'),nf.format(n.temporal_seed_reach_strict_days));
  assert.strictEqual(metric('Seed · верхняя граница по датам'),nf.format(n.temporal_seed_reach_upper));
@@ -51,6 +66,7 @@ for(const n of cases){
  assert.strictEqual(metric('В топ-20 при смене весов'),(100*n.priority_top20_frequency).toFixed(0)+'%');
  assert(card.textContent.includes(n.next_request));assert(card.textContent.includes('Все сработавшие правила:'));assert(card.textContent.includes('Состав приоритета'));
  const download=descendants(card).find(e=>e.tagName==='button'&&e.textContent==='Скачать карточку ↓');assert(download);download.click();
+ assert(downloaded.includes(roleOrderText));assert(downloaded.includes(`Узлы сбора/рассылки рядом: ${n.structural_neighbors}`));assert(downloaded.includes(`Betweenness: ${Number(n.betweenness).toFixed(6)}`));assert(downloaded.includes(`betweenness ≥ ${Number(thresholds.coordinator_betweenness_actual).toFixed(6)} (q99) и > 0.`));
  assert(downloaded.includes(n.gid));assert(downloaded.includes(n.next_request));assert(downloaded.includes(`Seed по структуре, без учёта дат: ${n.seed_reach}`));assert(downloaded.includes(`Seed по строго возрастающим дням: ${n.temporal_seed_reach_strict_days}`));assert(downloaded.includes('Все сработавшие правила:'));
  if(n.cluster_stability_scope==='isolate_not_assessed'){assert.strictEqual(metric('Сходство состава кластера'),'Не оценивалась');assert(downloaded.includes('Сходство состава кластера: Не оценивалась'));assert(downloaded.includes('Изолят: устойчивость кластера не оценивалась.'));assert.strictEqual(api.visibleNodeIds.length,1)}
  else assert.strictEqual(metric('Сходство состава кластера'),(100*n.cluster_stability).toFixed(0)+'%');
@@ -60,7 +76,7 @@ const prior=api.selected;assert.strictEqual(api.selectNode('000000000000000000')
 api.selectNode(nodes[0].gid);elements.get('hopSelect').value='2';elements.get('hopSelect').listeners.change();assert(api.visibleNodeIds.length>1);
 elements.get('roleFilter').value='transit';elements.get('roleFilter').listeners.change();assert(api.visibleNodeIds.every(g=>data.nodes.find(n=>n.gid===g).role==='transit'));
 assert(data.nodes.every(n=>typeof n.gid==='string'));assert(data.edges.every(e=>typeof e.src==='string'&&typeof e.dst==='string'));
-console.log('PASS: top-1 initial card, overview mode, priority directly after evidence with no duplicates; JavaScript parses and initializes; 5 real node cards/downloads; string gids; static/temporal reach; all matched rules; exact next request; isolate no stability claim; rank sensitivity; priority contributions/seed discount; unknown gid; 2 hops; transit filter.');
+console.log('PASS: top-1 initial card, overview mode, priority directly after evidence with no duplicates; JavaScript parses and initializes; 7 real node cards/downloads; distributor/peripheral coordinator counterexamples; all roles expose structural neighbors/betweenness and rule precedence; string gids; static/temporal reach; all matched rules; exact next request; isolate no stability claim; rank sensitivity; priority contributions/seed discount; unknown gid; 2 hops; transit filter.');
 function ask(q){elements.get('assistantQuestion').value=q;elements.get('assistantForm').listeners.submit({preventDefault(){}});return elements.get('assistantAnswer').textContent}
 function unchanged(q,expected){const before={selected:api.selected,mode:api.mode,card:card.textContent,visible:JSON.stringify(api.visibleNodeIds)};const answer=ask(q);assert(expected.test(answer),`${q}: ${answer}`);assert.strictEqual(api.selected,before.selected,q);assert.strictEqual(api.mode,before.mode,q);assert.strictEqual(card.textContent,before.card,q);assert.strictEqual(JSON.stringify(api.visibleNodeIds),before.visible,q);assert.strictEqual(elements.get('assistantAnswer').childNodes.length,0,'No misleading answer cards: '+q)}
 const gid=nodes[0].gid,other=nodes[1].gid,unknown='999999999999999999';assert(!data.nodes.some(n=>n.gid===unknown));

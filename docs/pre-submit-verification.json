@@ -1,0 +1,47 @@
+{
+  "source_base": "55460f0 plus role-explanation UI fix",
+  "environment": "macOS ARM64, isolated downloaded CPython 3.13.15, pinned dependencies",
+  "steps": {
+    "run": {
+      "seconds": 4.145,
+      "exit_code": 0
+    },
+    "validate": {
+      "seconds": 0.719,
+      "exit_code": 0
+    },
+    "tests": {
+      "seconds": 4.121,
+      "exit_code": 0
+    },
+    "audit": {
+      "seconds": 1.639,
+      "exit_code": 0
+    },
+    "dom": {
+      "seconds": 0.384,
+      "exit_code": 0
+    }
+  },
+  "test_count": 95,
+  "python_socket_attempts_reported": 0,
+  "limits": "Python audit hooks in guarded parent processes only; not an OS firewall or visual browser check",
+  "runtime_seconds": 3.9175,
+  "files_sha256": {
+    "clusters.csv": "202688cd717db8a5ef28fc5e054269ed5d019213ec9eaba2ede0c2c4e796bdcb",
+    "data_requests.csv": "4eccacf3d4f78e5dd047e42b2889591c2866db8aa8726d93b3e4e46d151bc593",
+    "node_stability.csv": "869cd7b19e193b3fd825c6cb5bf406d211d4670eabd7406f2df4f16eb294294d",
+    "nodes_roles.csv": "62302a2c070b46fd5aa22af80a916ce3a5404d6b918ae1bc252b66458cecfe4e",
+    "resilience.csv": "1f62c07b8374c216cacde99a1746dc8f1eaef5ac31536b6a3b342d4b5d69caf2",
+    "sensitivity.csv": "e8e5dd362815f84af7992113a6ac5a4b78f43c3066de32bab847206a46af6858",
+    "top_nodes.csv": "ffe2e8be5b05195682a380817683ecd17d0fddaa91a21f18b38a4fac07e2998e",
+    "network.html": "bec3873e2f3f04d4ba14d212dc33f304560f7b3a55d4575e1747c47b6d4a0940"
+  },
+  "source_sha256": {
+    "aml/viewer_template.html": "04837136410321de2ad1508253dd0d51fa55deb8acf69b3e1e17c22237f6a580",
+    "scripts/check_viewer.cjs": "10656469230078526421b37f374c034d865d32fa93b3a10dc7207aec26b2bafb",
+    "tests/run_without_network.py": "f8407c57ebae44bba9305591dd0e814addaceba287742647b31f64421498dd51",
+    "aml/validate.py": "3e991847efcf0c38e91fff583e4b65d006b7e7fab339373e6d4b6e962a1fb629",
+    "run.py": "6650533fb905c567feed8e111fc2e28619f7d8c1cc14e9ae7cdc50e75b0da2db"
+  }
+}
