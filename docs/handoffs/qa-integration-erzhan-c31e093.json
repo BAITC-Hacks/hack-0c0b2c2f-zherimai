@@ -1,0 +1,676 @@
+{
+  "commit": "c31e093600e00dd6bf384407101b73d491fff85f",
+  "python": "3.13.15",
+  "steps": [
+    {
+      "step": "first",
+      "exit_code": 0,
+      "wall_seconds": 3.4393
+    },
+    {
+      "step": "validate",
+      "exit_code": 0,
+      "wall_seconds": 0.9178
+    },
+    {
+      "step": "audit",
+      "exit_code": 0,
+      "wall_seconds": 1.8474
+    },
+    {
+      "step": "unittest",
+      "exit_code": 0,
+      "wall_seconds": 5.408
+    },
+    {
+      "step": "repeat-locale",
+      "exit_code": 0,
+      "wall_seconds": 3.0772
+    },
+    {
+      "step": "validate-locale",
+      "exit_code": 0,
+      "wall_seconds": 0.8761
+    }
+  ],
+  "comparisons": [
+    {
+      "file": "clusters.csv",
+      "sha256": "8b68497baedc29197f11cfcdf74fecd163a2ee05e6e7387800b1a9395974ef97",
+      "repeat_identical": true,
+      "commit_identical": true,
+      "commit_lf_normalized_identical": true
+    },
+    {
+      "file": "data_requests.csv",
+      "sha256": "4f57b91ab469f61c6b896cbc6c439ec0cdfc9aa2cdcd02ea885430e128846151",
+      "repeat_identical": true,
+      "commit_identical": true,
+      "commit_lf_normalized_identical": true
+    },
+    {
+      "file": "node_stability.csv",
+      "sha256": "095e358c75f6fc750494f5d887e7055f32a011fe1e1f5e3c6151ac9ac83d1e65",
+      "repeat_identical": true,
+      "commit_identical": true,
+      "commit_lf_normalized_identical": true
+    },
+    {
+      "file": "nodes_roles.csv",
+      "sha256": "49912ccfeaeaa31f6e986b48f14ec788af632a67959859a9136bd05a1b4d626f",
+      "repeat_identical": true,
+      "commit_identical": true,
+      "commit_lf_normalized_identical": true
+    },
+    {
+      "file": "resilience.csv",
+      "sha256": "9f22a7e19b285f20305114b0a029691e807ec5b122205124b3902aae690636f6",
+      "repeat_identical": true,
+      "commit_identical": true,
+      "commit_lf_normalized_identical": true
+    },
+    {
+      "file": "sensitivity.csv",
+      "sha256": "27ba0ed03f588633e0c18e49f9ca74ebdd5c1161f85b8b1a273cea90f5e8884c",
+      "repeat_identical": true,
+      "commit_identical": true,
+      "commit_lf_normalized_identical": true
+    },
+    {
+      "file": "top_nodes.csv",
+      "sha256": "3e725b9eabf5352e54ac090d4da22560cb00bb458e69712baff98ed26f71c49b",
+      "repeat_identical": true,
+      "commit_identical": true,
+      "commit_lf_normalized_identical": true
+    },
+    {
+      "file": "network.html",
+      "sha256": "696ef7a51cadbcf5adafd54ab78e58fd2c3adda8f1063e2e2101dd2af3bb2ad1",
+      "repeat_identical": true,
+      "commit_identical": true,
+      "commit_lf_normalized_identical": true
+    }
+  ],
+  "runtime_seconds": [
+    3.2253,
+    2.8745
+  ],
+  "audit_mismatches": {},
+  "report": {
+    "n_nodes": 2248,
+    "n_edges": 3119,
+    "n_transactions": 4840,
+    "sum_kzt": 365890012.01,
+    "n_seed": 81,
+    "weak_components_including_isolates": 35,
+    "isolated_nodes": 19,
+    "truncated_depth4": 444,
+    "n_clusters_including_isolate_group": 49,
+    "communities_with_multiple_seeds": 9,
+    "role_counts": {
+      "peripheral": 1540,
+      "terminal": 566,
+      "distributor": 43,
+      "consolidator": 42,
+      "transit": 36,
+      "coordinator": 21
+    },
+    "temporal_reach": {
+      "nodes_with_upper_below_static": 1827,
+      "nodes_with_strict_below_upper": 362,
+      "interpretation": "Date-compatible paths only; same-day order is unknown, amounts and provenance are not traced"
+    },
+    "sensitivity": {
+      "louvain": {
+        "seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ],
+        "resolution": 1.0,
+        "weight": "weight",
+        "evaluated_nodes": 2229,
+        "excluded_isolates": 19,
+        "baseline_communities": 48,
+        "baseline_modularity": 0.7916008879557718,
+        "seed42_matches_baseline": true,
+        "communities_min": 43,
+        "communities_max": 49,
+        "alternative_ari_min": 0.6707174840749045,
+        "alternative_ari_mean": 0.6784175344248426,
+        "alternative_pair_agreement_min": 0.9688261395204232,
+        "membership_jaccard_mean": 0.6575573112492932,
+        "membership_jaccard_min": 0.012866954691481114
+      },
+      "priority": {
+        "baseline_weights": {
+          "role": 0.3,
+          "reach": 0.25,
+          "volume": 0.2,
+          "pagerank": 0.15,
+          "patterns": 0.1
+        },
+        "multipliers": [
+          0.8,
+          1.2
+        ],
+        "scenario_count_including_baseline": 11,
+        "top_k": 20,
+        "alternative_top20_overlap_min": 18,
+        "alternative_top20_overlap_mean": 19.5,
+        "alternative_top20_jaccard_min": 0.8181818181818182,
+        "always_top20_nodes": 18,
+        "ever_top20_nodes": 22,
+        "seed_discount": 0.6
+      },
+      "limits": [
+        "Only Louvain random seeds and individual priority weights are varied.",
+        "Roles, role thresholds, data, feature normalization and cluster projection stay fixed.",
+        "Stability is not accuracy, calibrated confidence or evidence of wrongdoing.",
+        "Isolates are excluded from community analysis; their per-node stability=1 is a technical sentinel.",
+        "Node membership stability excludes seed 42; priority frequency includes baseline and 10 variants.",
+        "No sensitivity to missing flows, projection choices, resolution or simultaneous weight changes is measured."
+      ]
+    },
+    "thresholds": {
+      "consolidator_in_deg": 5,
+      "distributor_out_deg": 10,
+      "transit_ratio_min": 0.8,
+      "transit_ratio_max": 1.2,
+      "transit_in_kzt": 50000.0,
+      "terminal_in_kzt": 50000.0,
+      "retention_in_kzt": 200000.0,
+      "retention_ratio_max": 0.2,
+      "coordinator_structural_neighbors": 2,
+      "coordinator_seed_reach": 3,
+      "coordinator_betweenness_quantile": 0.99,
+      "coordinator_betweenness_actual": 0.0019892319141409562
+    },
+    "runtime_seconds": 3.2253,
+    "python": "3.13.15",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "networkx": "3.7",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1"
+    },
+    "input_sha256": {
+      "edges.parquet": "4e71dde5cd3115bcb26e91202665532ee6581cf8233a9fc8059ea59fb7358a38",
+      "nodes.parquet": "d2a45b0df6e9352832d5fb09839d10b9e23f898156c3bab263b051b31cc0296d",
+      "transactions.parquet": "c30c5317b5439591dde86f2058dc47a3d19b2900c055ded994fe547f6fb7e7da"
+    },
+    "limits": [
+      "Observed internal-bank July 2026 transfers >=5000 KZT only",
+      "Depth-4 outgoing flows not collected",
+      "Scores are rule strength and review priority, not crime probabilities",
+      "Date-only temporal compatibility is not provenance of funds",
+      "No labelled ground truth; precision/recall cannot be claimed"
+    ]
+  },
+  "network_guard": "Process-local Python socket audit, no OS firewall",
+  "environment": "Reused fresh Windows venv installed solely from wheels in previous ca8b43d QA",
+  "locale_repeat": "Python UTF-8 mode disabled with -X utf8=0",
+  "tests": {
+    "main": {
+      "count": 90,
+      "seconds": 4.593
+    },
+    "qa_merged": {
+      "commit": "00417d8",
+      "count": 95,
+      "seconds": 5.046
+    },
+    "resourcewarning_is_error": true
+  },
+  "validator_probe": {
+    "validator_sha256": "e0e3861c22144c707ba4fb8dce6f64983507f7779d906bf125b7d3df8fa31889",
+    "results": [
+      {
+        "case": "baseline",
+        "changes": [],
+        "result": {
+          "status": "PASS",
+          "n_nodes": 2248,
+          "n_clusters": 49,
+          "n_top": 50,
+          "runtime_seconds": 3.2253
+        },
+        "expected": "PASS",
+        "actual": "PASS",
+        "expected_error": null,
+        "pass": true,
+        "same_changes_as_previous": true
+      },
+      {
+        "case": "depth_only",
+        "changes": [
+          {
+            "gid": "100000000018102100",
+            "column": "depth",
+            "before": 4,
+            "after": 3
+          }
+        ],
+        "exception_type": "ValueError",
+        "error": "Source depth mismatch",
+        "expected": "REJECT",
+        "actual": "REJECT",
+        "expected_error": "Source depth mismatch",
+        "pass": true,
+        "same_changes_as_previous": true
+      },
+      {
+        "case": "depth4_terminal_control",
+        "changes": [
+          {
+            "gid": "100000000018102100",
+            "column": "role",
+            "before": "peripheral",
+            "after": "terminal"
+          }
+        ],
+        "exception_type": "ValueError",
+        "error": "Depth-4 false terminal",
+        "expected": "REJECT",
+        "actual": "REJECT",
+        "expected_error": "Depth-4 false terminal",
+        "pass": true,
+        "same_changes_as_previous": true
+      },
+      {
+        "case": "depth4_terminal_masked",
+        "changes": [
+          {
+            "gid": "100000000018102100",
+            "column": "depth",
+            "before": 4,
+            "after": 3
+          },
+          {
+            "gid": "100000000018102100",
+            "column": "role",
+            "before": "peripheral",
+            "after": "terminal"
+          }
+        ],
+        "exception_type": "ValueError",
+        "error": "Source depth mismatch",
+        "expected": "REJECT",
+        "actual": "REJECT",
+        "expected_error": "Source depth mismatch",
+        "pass": true,
+        "same_changes_as_previous": true
+      },
+      {
+        "case": "isolate_degree_only",
+        "changes": [
+          {
+            "gid": "100000000456947100",
+            "column": "in_deg",
+            "before": 0,
+            "after": 1
+          }
+        ],
+        "exception_type": "ValueError",
+        "error": "Source in_deg mismatch",
+        "expected": "REJECT",
+        "actual": "REJECT",
+        "expected_error": "Source in_deg mismatch",
+        "pass": true,
+        "same_changes_as_previous": true
+      },
+      {
+        "case": "isolate_role_control",
+        "changes": [
+          {
+            "gid": "100000000456947100",
+            "column": "role",
+            "before": "peripheral",
+            "after": "consolidator"
+          }
+        ],
+        "exception_type": "ValueError",
+        "error": "Isolated node role",
+        "expected": "REJECT",
+        "actual": "REJECT",
+        "expected_error": "Isolated node role",
+        "pass": true,
+        "same_changes_as_previous": true
+      },
+      {
+        "case": "isolate_role_masked",
+        "changes": [
+          {
+            "gid": "100000000456947100",
+            "column": "in_deg",
+            "before": 0,
+            "after": 1
+          },
+          {
+            "gid": "100000000456947100",
+            "column": "role",
+            "before": "peripheral",
+            "after": "consolidator"
+          }
+        ],
+        "exception_type": "ValueError",
+        "error": "Source in_deg mismatch",
+        "expected": "REJECT",
+        "actual": "REJECT",
+        "expected_error": "Source in_deg mismatch",
+        "pass": true,
+        "same_changes_as_previous": true
+      },
+      {
+        "case": "seed_swap_same_cluster",
+        "changes": [
+          {
+            "gid": "100000001732159100",
+            "column": "is_seed",
+            "before": true,
+            "after": false
+          },
+          {
+            "gid": "100000000011452100",
+            "column": "is_seed",
+            "before": false,
+            "after": true
+          }
+        ],
+        "exception_type": "ValueError",
+        "error": "Source is_seed mismatch",
+        "expected": "REJECT",
+        "actual": "REJECT",
+        "expected_error": "Source is_seed mismatch",
+        "pass": true,
+        "same_changes_as_previous": true
+      },
+      {
+        "case": "seed_transit_control",
+        "changes": [
+          {
+            "gid": "100000001732159100",
+            "column": "role",
+            "before": "peripheral",
+            "after": "transit"
+          }
+        ],
+        "exception_type": "ValueError",
+        "error": "Seed balance used for transit",
+        "expected": "REJECT",
+        "actual": "REJECT",
+        "expected_error": "Seed balance used for transit",
+        "pass": true,
+        "same_changes_as_previous": true
+      },
+      {
+        "case": "seed_transit_masked",
+        "changes": [
+          {
+            "gid": "100000001732159100",
+            "column": "is_seed",
+            "before": true,
+            "after": false
+          },
+          {
+            "gid": "100000000011452100",
+            "column": "is_seed",
+            "before": false,
+            "after": true
+          },
+          {
+            "gid": "100000001732159100",
+            "column": "role",
+            "before": "peripheral",
+            "after": "transit"
+          }
+        ],
+        "exception_type": "ValueError",
+        "error": "Source is_seed mismatch",
+        "expected": "REJECT",
+        "actual": "REJECT",
+        "expected_error": "Source is_seed mismatch",
+        "pass": true,
+        "same_changes_as_previous": true
+      }
+    ],
+    "all_pass": true,
+    "bad_pass_count": 0,
+    "unexpected_refusal_count": 0,
+    "source_outputs_unchanged": {
+      "snapshot_data": true,
+      "snapshot_out": true,
+      "previous_probe": true
+    }
+  },
+  "viewer": {
+    "command": "node scripts/check_viewer.cjs",
+    "node": "24.19.0",
+    "exit_code": 0,
+    "visual_browser_check": false
+  },
+  "locale_encoding": "cp1251",
+  "analyze_utf8_without_utf8_mode": {
+    "exit_code": 0,
+    "json_read_as_utf8": true,
+    "cyrillic_markdown_read_as_utf8": true
+  },
+  "uv": {
+    "source_commit": "c31e093600e00dd6bf384407101b73d491fff85f",
+    "uv_bootstrap": "Existing uv executable; CLI installation was not retested",
+    "scope": "Windows managed-Python bootstrap with network, then local calculation under process-local Python socket audit guard; no paid API or browser checks",
+    "fresh_source_without_out_or_venv": true,
+    "empty_managed_python_and_cache_before_setup": true,
+    "uv_version": "uv 0.12.18 (01cb90c1a 2026-09-22 x86_64-pc-windows-msvc)",
+    "managed_interpreter_is_inside_review": true,
+    "preparation_complete": true,
+    "comparisons": [
+      {
+        "file": "out/clusters.csv",
+        "identical": true,
+        "sha256": "8b68497baedc29197f11cfcdf74fecd163a2ee05e6e7387800b1a9395974ef97"
+      },
+      {
+        "file": "out/data_requests.csv",
+        "identical": true,
+        "sha256": "4f57b91ab469f61c6b896cbc6c439ec0cdfc9aa2cdcd02ea885430e128846151"
+      },
+      {
+        "file": "out/network.html",
+        "identical": true,
+        "sha256": "696ef7a51cadbcf5adafd54ab78e58fd2c3adda8f1063e2e2101dd2af3bb2ad1"
+      },
+      {
+        "file": "out/node_stability.csv",
+        "identical": true,
+        "sha256": "095e358c75f6fc750494f5d887e7055f32a011fe1e1f5e3c6151ac9ac83d1e65"
+      },
+      {
+        "file": "out/nodes_roles.csv",
+        "identical": true,
+        "sha256": "49912ccfeaeaa31f6e986b48f14ec788af632a67959859a9136bd05a1b4d626f"
+      },
+      {
+        "file": "out/resilience.csv",
+        "identical": true,
+        "sha256": "9f22a7e19b285f20305114b0a029691e807ec5b122205124b3902aae690636f6"
+      },
+      {
+        "file": "out/sensitivity.csv",
+        "identical": true,
+        "sha256": "27ba0ed03f588633e0c18e49f9ca74ebdd5c1161f85b8b1a273cea90f5e8884c"
+      },
+      {
+        "file": "out/top_nodes.csv",
+        "identical": true,
+        "sha256": "3e725b9eabf5352e54ac090d4da22560cb00bb458e69712baff98ed26f71c49b"
+      }
+    ],
+    "status": "PASS",
+    "environment": {
+      "python": "3.13.15",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "machine": "AMD64",
+      "versions": {
+        "pandas": "3.0.6",
+        "pyarrow": "25.0.1",
+        "networkx": "3.7",
+        "numpy": "2.5.3",
+        "scipy": "1.18.1",
+        "python-dateutil": "2.9.0.post0",
+        "six": "1.17.0",
+        "tzdata": "2026.4"
+      }
+    },
+    "steps": [
+      {
+        "name": "uv-version",
+        "seconds": 0.0178,
+        "exit_code": 0,
+        "offline_stage": false
+      },
+      {
+        "name": "uv-venv",
+        "seconds": 27.3477,
+        "exit_code": 2,
+        "offline_stage": false
+      },
+      {
+        "name": "uv-version",
+        "seconds": 0.0209,
+        "exit_code": 0,
+        "offline_stage": false
+      },
+      {
+        "name": "uv-venv",
+        "seconds": 6.3356,
+        "exit_code": 0,
+        "offline_stage": false
+      },
+      {
+        "name": "uv-install",
+        "seconds": 10.0358,
+        "exit_code": 0,
+        "offline_stage": false
+      },
+      {
+        "name": "environment-metadata",
+        "seconds": 0.8025,
+        "exit_code": 0,
+        "offline_stage": false
+      },
+      {
+        "name": "uv-pip-check",
+        "seconds": 0.0338,
+        "exit_code": 0,
+        "offline_stage": true
+      },
+      {
+        "name": "guard-self-test",
+        "seconds": 0.1197,
+        "exit_code": 0,
+        "offline_stage": true
+      },
+      {
+        "name": "run",
+        "seconds": 6.6605,
+        "exit_code": 0,
+        "offline_stage": true
+      },
+      {
+        "name": "validate",
+        "seconds": 2.6498,
+        "exit_code": 0,
+        "offline_stage": true
+      },
+      {
+        "name": "audit-top",
+        "seconds": 3.3217,
+        "exit_code": 0,
+        "offline_stage": true
+      }
+    ],
+    "runtime_seconds": 6.0873,
+    "audit_mismatches": {},
+    "whole_test_suite_repeated": false
+  },
+  "kit": {
+    "file": "zherimai-windows-py313-c31e093.zip",
+    "bytes": 89729938,
+    "sha256": "6205946b66dc6f5f7d28ddb52072f50bb420b5d621ee2f08567b4b7564b668c6",
+    "entries": 95,
+    "verified": true
+  },
+  "package": {
+    "source_commit": "c31e093600e00dd6bf384407101b73d491fff85f",
+    "platform": "Windows AMD64",
+    "requires_preinstalled": "CPython 3.13 (verified with 3.13.15)",
+    "source_archive_sha256": "7a63b5a81e61e9f07fa0841bced3dd2917d66bb4264a13abb913c6d97caee9fe",
+    "source_exclusions": [
+      "out/"
+    ],
+    "prepared_outputs_included": false,
+    "qa_instrumentation": [
+      {
+        "file": "tests/run_without_network.py",
+        "sha256": "f8407c57ebae44bba9305591dd0e814addaceba287742647b31f64421498dd51"
+      },
+      {
+        "file": "tests/test_offline_runner.py",
+        "sha256": "fa5fc42a408420000ce4fb1814f8c1d7583e4abd7e8056c3e5ec251a2e628f3f"
+      }
+    ],
+    "wheelhouse": [
+      {
+        "file": "networkx-3.7-py3-none-any.whl",
+        "bytes": 2142205,
+        "sha256": "e3fd2c13a7814cee3746340d8d7f8598a67f16a58bf47fb7f8793fab6efca1b0"
+      },
+      {
+        "file": "numpy-2.5.3-cp313-cp313-win_amd64.whl",
+        "bytes": 12560965,
+        "sha256": "71cad2b2a7451ab79d8f5e71b453485b6775963d5cf794179144a7463fe6e8ec"
+      },
+      {
+        "file": "pandas-3.0.6-cp313-cp313-win_amd64.whl",
+        "bytes": 9638092,
+        "sha256": "f3ce8a6968045481e91a3990e797e348ce13db45ee164a7095bbc824e26c09dd"
+      },
+      {
+        "file": "pyarrow-25.0.1-cp313-cp313-win_amd64.whl",
+        "bytes": 27870159,
+        "sha256": "31e49a7888fcdf3a835da33ae777f6bb9a866334e5a789282fc26dcf426f7f15"
+      },
+      {
+        "file": "python_dateutil-2.9.0.post0-py2.py3-none-any.whl",
+        "bytes": 229892,
+        "sha256": "a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"
+      },
+      {
+        "file": "scipy-1.18.1-cp313-cp313-win_amd64.whl",
+        "bytes": 36622841,
+        "sha256": "559ed65f60c1af5a03f3912605a1b5114f522c7c32fb23c3376ae8f03219fe28"
+      },
+      {
+        "file": "six-1.17.0-py2.py3-none-any.whl",
+        "bytes": 11050,
+        "sha256": "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"
+      },
+      {
+        "file": "tzdata-2026.4-py2.py3-none-any.whl",
+        "bytes": 347494,
+        "sha256": "c2169a8b0a7a5e9674da5a135ccdfb2b3e671b333ed9fed17b41f73c34476e81"
+      }
+    ]
+  },
+  "limits": [
+    "Not a real-browser visual check",
+    "No Linux or judge machine checked",
+    "Network guard is process local, not OS disconnection",
+    "Actual uv installation not repeated; existing CLI used",
+    "Platform submission not performed"
+  ]
+}
