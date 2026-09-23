@@ -1,0 +1,188 @@
+{
+  "checked_at": "2026-09-23T11:07:44.587292+00:00",
+  "base_commit": "4f162b62f82edf94d39815a5e12cffaf07d10614",
+  "validator_sha256": "80982eb44116c23e46d896b0167912eae9b310d8d2920edb944a3aa75de48eb5",
+  "handoff_json_sha256": "3094e47e65d9d0afcf9ec64d3207318af5fd576927ec6f66ef7c356251938b7c",
+  "python": "3.13.2",
+  "source_outputs_unchanged": true,
+  "method": "Exact C handoff changes replayed by gid in temporary copies; direct validate_outputs calls; no graph/role recomputation.",
+  "baseline_pass": true,
+  "negative_cases": 9,
+  "negative_rejected": 9,
+  "all_match_expected": true,
+  "cases": [
+    {
+      "case": "baseline",
+      "changes": [],
+      "expected": "PASS",
+      "actual": "PASS",
+      "matches_expected": true,
+      "error": null
+    },
+    {
+      "case": "depth_only",
+      "changes": [
+        {
+          "gid": "100000000018102100",
+          "column": "depth",
+          "before": 4,
+          "after": 3
+        }
+      ],
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "matches_expected": true,
+      "error": "Source depth mismatch"
+    },
+    {
+      "case": "depth4_terminal_control",
+      "changes": [
+        {
+          "gid": "100000000018102100",
+          "column": "role",
+          "before": "peripheral",
+          "after": "terminal"
+        }
+      ],
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "matches_expected": true,
+      "error": "Depth-4 false terminal"
+    },
+    {
+      "case": "depth4_terminal_masked",
+      "changes": [
+        {
+          "gid": "100000000018102100",
+          "column": "depth",
+          "before": 4,
+          "after": 3
+        },
+        {
+          "gid": "100000000018102100",
+          "column": "role",
+          "before": "peripheral",
+          "after": "terminal"
+        }
+      ],
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "matches_expected": true,
+      "error": "Source depth mismatch"
+    },
+    {
+      "case": "isolate_degree_only",
+      "changes": [
+        {
+          "gid": "100000000456947100",
+          "column": "in_deg",
+          "before": 0,
+          "after": 1
+        }
+      ],
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "matches_expected": true,
+      "error": "Source in_deg mismatch"
+    },
+    {
+      "case": "isolate_role_control",
+      "changes": [
+        {
+          "gid": "100000000456947100",
+          "column": "role",
+          "before": "peripheral",
+          "after": "consolidator"
+        }
+      ],
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "matches_expected": true,
+      "error": "Isolated node role"
+    },
+    {
+      "case": "isolate_role_masked",
+      "changes": [
+        {
+          "gid": "100000000456947100",
+          "column": "in_deg",
+          "before": 0,
+          "after": 1
+        },
+        {
+          "gid": "100000000456947100",
+          "column": "role",
+          "before": "peripheral",
+          "after": "consolidator"
+        }
+      ],
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "matches_expected": true,
+      "error": "Source in_deg mismatch"
+    },
+    {
+      "case": "seed_swap_same_cluster",
+      "changes": [
+        {
+          "gid": "100000001732159100",
+          "column": "is_seed",
+          "before": true,
+          "after": false
+        },
+        {
+          "gid": "100000000011452100",
+          "column": "is_seed",
+          "before": false,
+          "after": true
+        }
+      ],
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "matches_expected": true,
+      "error": "Source is_seed mismatch"
+    },
+    {
+      "case": "seed_transit_control",
+      "changes": [
+        {
+          "gid": "100000001732159100",
+          "column": "role",
+          "before": "peripheral",
+          "after": "transit"
+        }
+      ],
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "matches_expected": true,
+      "error": "Seed balance used for transit"
+    },
+    {
+      "case": "seed_transit_masked",
+      "changes": [
+        {
+          "gid": "100000001732159100",
+          "column": "is_seed",
+          "before": true,
+          "after": false
+        },
+        {
+          "gid": "100000000011452100",
+          "column": "is_seed",
+          "before": false,
+          "after": true
+        },
+        {
+          "gid": "100000001732159100",
+          "column": "role",
+          "before": "peripheral",
+          "after": "transit"
+        }
+      ],
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "matches_expected": true,
+      "error": "Source is_seed mismatch"
+    }
+  ]
+}

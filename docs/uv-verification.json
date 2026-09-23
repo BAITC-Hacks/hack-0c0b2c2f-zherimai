@@ -1,0 +1,120 @@
+{
+  "source_commit": "8b36d9994a4f3992188b12175ae58a1e51a9f7e0",
+  "source_changes": [
+    "run.py UTF-8 writes",
+    "aml/validate.py UTF-8 read",
+    "scripts/analyze.py UTF-8 writes"
+  ],
+  "uv": "0.12.18",
+  "platform": "macOS 27.0 ARM64",
+  "initial_absent": [
+    "out",
+    ".venv",
+    ".git"
+  ],
+  "bootstrap_install_seconds": 3.486,
+  "source_sha256": {
+    "run.py": "6650533fb905c567feed8e111fc2e28619f7d8c1cc14e9ae7cdc50e75b0da2db",
+    "aml/validate.py": "3e991847efcf0c38e91fff583e4b65d006b7e7fab339373e6d4b6e962a1fb629",
+    "scripts/analyze.py": "a95da29fc71ab770fa04c9a6d8875d9520cb4f6f60d02556aec854cb8baba8de"
+  },
+  "tests_count": 90,
+  "files_sha256": {
+    "clusters.csv": "202688cd717db8a5ef28fc5e054269ed5d019213ec9eaba2ede0c2c4e796bdcb",
+    "data_requests.csv": "4eccacf3d4f78e5dd047e42b2889591c2866db8aa8726d93b3e4e46d151bc593",
+    "node_stability.csv": "869cd7b19e193b3fd825c6cb5bf406d211d4670eabd7406f2df4f16eb294294d",
+    "nodes_roles.csv": "62302a2c070b46fd5aa22af80a916ce3a5404d6b918ae1bc252b66458cecfe4e",
+    "resilience.csv": "1f62c07b8374c216cacde99a1746dc8f1eaef5ac31536b6a3b342d4b5d69caf2",
+    "sensitivity.csv": "e8e5dd362815f84af7992113a6ac5a4b78f43c3066de32bab847206a46af6858",
+    "top_nodes.csv": "ffe2e8be5b05195682a380817683ecd17d0fddaa91a21f18b38a4fac07e2998e",
+    "network.html": "256876e3773855ff66bc543a0d6dd6ffdca360171d6abc64cecaf5de31d5bef3"
+  },
+  "identical_to_main_out": {
+    "clusters.csv": true,
+    "data_requests.csv": true,
+    "node_stability.csv": true,
+    "nodes_roles.csv": true,
+    "resilience.csv": true,
+    "sensitivity.csv": true,
+    "top_nodes.csv": true,
+    "network.html": true
+  },
+  "audit_mismatches": {},
+  "checked_at": "2026-09-23T16:17:29.518215+05:00",
+  "limits": [
+    "Preparation downloaded uv, CPython 3.13.15, and seven wheels from the network; no claim of offline installation from an empty machine.",
+    "Run/validation/tests/audit ran afterwards under the default restricted sandbox with OPENAI_* removed, PIP_NO_INDEX=1 and UV_OFFLINE=1. No paid API calls.",
+    "Verified only macOS 27.0 ARM64. No new Linux/Windows installation or Python 3.12 test.",
+    "Node-backed tests used the already installed Node runtime; Node is not required for run.py.",
+    "No real browser visual check was performed by this verifier."
+  ],
+  "python_version": "3.13.15",
+  "packages": {
+    "pandas": {
+      "version": "3.0.6",
+      "requires_python": ">=3.11"
+    },
+    "pyarrow": {
+      "version": "25.0.1",
+      "requires_python": ">=3.10"
+    },
+    "networkx": {
+      "version": "3.7",
+      "requires_python": "!=3.14.1,>=3.12"
+    },
+    "numpy": {
+      "version": "2.5.3",
+      "requires_python": ">=3.12"
+    },
+    "scipy": {
+      "version": "1.18.1",
+      "requires_python": ">=3.12"
+    },
+    "python-dateutil": {
+      "version": "2.9.0.post0",
+      "requires_python": "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
+    },
+    "six": {
+      "version": "1.17.0",
+      "requires_python": ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+    }
+  },
+  "runtime_seconds": 14.5563,
+  "steps": {
+    "venv": {
+      "seconds": 3.76,
+      "exit_code": 0,
+      "phase": "online preparation"
+    },
+    "install": {
+      "seconds": 7.555,
+      "exit_code": 0,
+      "phase": "online preparation"
+    },
+    "check": {
+      "seconds": 0.025,
+      "exit_code": 0,
+      "phase": "offline computation"
+    },
+    "run": {
+      "seconds": 15.009,
+      "exit_code": 0,
+      "phase": "offline computation"
+    },
+    "validate": {
+      "seconds": 0.861,
+      "exit_code": 0,
+      "phase": "offline computation"
+    },
+    "tests": {
+      "seconds": 4.303,
+      "exit_code": 0,
+      "phase": "offline computation"
+    },
+    "audit": {
+      "seconds": 1.633,
+      "exit_code": 0,
+      "phase": "offline computation"
+    }
+  }
+}

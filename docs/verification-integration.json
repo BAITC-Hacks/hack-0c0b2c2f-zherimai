@@ -1,0 +1,51 @@
+{
+  "source_base": "a3fdedf plus source validation and browser routing fixes",
+  "steps": {
+    "run": {
+      "seconds": 4.91,
+      "exit_code": 0
+    },
+    "validate": {
+      "seconds": 0.792,
+      "exit_code": 0
+    },
+    "tests": {
+      "seconds": 3.958,
+      "exit_code": 0
+    },
+    "audit": {
+      "seconds": 1.697,
+      "exit_code": 0
+    },
+    "dom": {
+      "seconds": 0.37,
+      "exit_code": 0
+    }
+  },
+  "runtime_seconds": 4.7474,
+  "files_sha256": {
+    "clusters.csv": "202688cd717db8a5ef28fc5e054269ed5d019213ec9eaba2ede0c2c4e796bdcb",
+    "data_requests.csv": "4eccacf3d4f78e5dd047e42b2889591c2866db8aa8726d93b3e4e46d151bc593",
+    "node_stability.csv": "869cd7b19e193b3fd825c6cb5bf406d211d4670eabd7406f2df4f16eb294294d",
+    "nodes_roles.csv": "62302a2c070b46fd5aa22af80a916ce3a5404d6b918ae1bc252b66458cecfe4e",
+    "resilience.csv": "1f62c07b8374c216cacde99a1746dc8f1eaef5ac31536b6a3b342d4b5d69caf2",
+    "sensitivity.csv": "e8e5dd362815f84af7992113a6ac5a4b78f43c3066de32bab847206a46af6858",
+    "top_nodes.csv": "ffe2e8be5b05195682a380817683ecd17d0fddaa91a21f18b38a4fac07e2998e",
+    "network.html": "256876e3773855ff66bc543a0d6dd6ffdca360171d6abc64cecaf5de31d5bef3"
+  },
+  "platform": "macOS ARM64",
+  "python": "3.13.2",
+  "test_count": 90,
+  "working_runtime_seconds": 4.1971,
+  "initial_offline_setup_seconds": 14.68,
+  "reused_clean_environment": true,
+  "api_calls": 0,
+  "visual_browser_test": false,
+  "source_sha256": {
+    "aml/validate.py": "80982eb44116c23e46d896b0167912eae9b310d8d2920edb944a3aa75de48eb5",
+    "aml/validate_diagnostics.py": "8cadc551748c69c340242fc14dcee573ce1b109f24b6eb97a67669ae52dbd8a3",
+    "aml/assistant.py": "a5c3f077f222b0bf5634377517d18e7b1690317b34a634fbae7484e22c37ea1a",
+    "aml/viewer_template.html": "71ea068e7635d1d11680d4950c9e2159dcd7356ed5886ca23ae8f34daecdee91",
+    "scripts/check_viewer.cjs": "601e93a649ea5f1557b167c3c09f55fd531860f9e107a4aa0577dfe2188eb2bf"
+  }
+}
