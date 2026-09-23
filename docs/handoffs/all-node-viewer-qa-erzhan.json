@@ -1,0 +1,113 @@
+{
+  "project": "DalaAI",
+  "participant": "Erzhan / C",
+  "created_at": "2026-09-23T17:42:22.157598+05:00",
+  "actual_qa_head": "cc3a1cc4d536d7b9281ce256dec92460d379863e",
+  "source_artifact_commit": "5926dbd12dc233093eb9b9b726cf114692f8079c",
+  "python": "3.13.15",
+  "node": "24.19.0",
+  "helper_sha256_windows": "a10265f2ca2b53e20d27e945d291fb57e0e71225a5acaa51122c67a030bab544",
+  "helper_sha256_lf": "a10265f2ca2b53e20d27e945d291fb57e0e71225a5acaa51122c67a030bab544",
+  "baseline_artifact_sha256": {
+    "network.html": "2b82eeed5cbe3481169d0ece95771135bb6b873ba758372257ef48bb3d6212fc",
+    "nodes_roles.csv": "49912ccfeaeaa31f6e986b48f14ec788af632a67959859a9136bd05a1b4d626f"
+  },
+  "command": [
+    "python",
+    "-B",
+    "tests/check_all_viewer_nodes.py",
+    "--data",
+    "data",
+    "--out",
+    "out"
+  ],
+  "cases": [
+    {
+      "case": "baseline",
+      "exit_code": 0,
+      "expected_reason_seen": null,
+      "pass": true,
+      "result": {
+        "status": "PASS",
+        "nodes_checked": 2248,
+        "edges_checked": 3119,
+        "neighbour_entries_checked": 6238,
+        "txt_payloads_checked": 2248,
+        "mode": "DOM stub; not a visual browser check"
+      },
+      "expected_reason": null
+    },
+    {
+      "case": "last_csv_evidence",
+      "exit_code": 1,
+      "expected_reason_seen": true,
+      "pass": true,
+      "result": null,
+      "expected_reason": "Exact evidence [gid]"
+    },
+    {
+      "case": "last_csv_role_score",
+      "exit_code": 1,
+      "expected_reason_seen": true,
+      "pass": true,
+      "result": null,
+      "expected_reason": "Role score vs CSV [gid]"
+    },
+    {
+      "case": "last_csv_priority_score",
+      "exit_code": 1,
+      "expected_reason_seen": true,
+      "pass": true,
+      "result": null,
+      "expected_reason": "Priority score vs CSV [gid]"
+    },
+    {
+      "case": "last_csv_cluster_id",
+      "exit_code": 1,
+      "expected_reason_seen": true,
+      "pass": true,
+      "result": null,
+      "expected_reason": "Cluster vs CSV [gid]"
+    },
+    {
+      "case": "missing_last_csv_node",
+      "exit_code": 1,
+      "expected_reason_seen": true,
+      "pass": true,
+      "result": null,
+      "expected_reason": "CSV node coverage differs from parquet"
+    },
+    {
+      "case": "last_html_edge_one_tiyn",
+      "exit_code": 1,
+      "expected_reason_seen": true,
+      "pass": true,
+      "result": null,
+      "expected_reason": "Edge amount vs parquet [gid]|[gid]"
+    },
+    {
+      "case": "synthetic_self_loop",
+      "exit_code": 0,
+      "expected_reason_seen": null,
+      "pass": true,
+      "result": {
+        "status": "PASS",
+        "nodes_checked": 2248,
+        "edges_checked": 3120,
+        "neighbour_entries_checked": 6239,
+        "txt_payloads_checked": 2248,
+        "mode": "DOM stub; not a visual browser check"
+      },
+      "expected_reason": null
+    }
+  ],
+  "all_cases_pass": true,
+  "source_files_unchanged": true,
+  "scope": "DOM stub, baseline plus six negative mutations and one synthetic self-loop fixture. No browser, API, submission or full pipeline claim for synthetic data.",
+  "limits": [
+    "Runs the existing dataset-specific DOM harness before checking every node.",
+    "Does not verify real browser rendering, real file downloads, or every neighbour-button click.",
+    "Synthetic self-loop is a DOM fixture, not a full recalculation of roles or evidence.",
+    "Existing 98-test unittest count is unchanged; this is a separate optional QA command."
+  ]
+}
