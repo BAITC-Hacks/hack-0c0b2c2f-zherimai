@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "purpose": "Оценка выбора одной локальной операции; не оценка AML-ролей или фактов модели.",
+  "cases_total": 12,
+  "expected_max_api_calls_per_model": 11,
+  "input_sha256": {
+    "out/nodes_roles.csv": "62302a2c070b46fd5aa22af80a916ce3a5404d6b918ae1bc252b66458cecfe4e",
+    "out/clusters.csv": "202688cd717db8a5ef28fc5e054269ed5d019213ec9eaba2ede0c2c4e796bdcb",
+    "data/edges.parquet": "4e71dde5cd3115bcb26e91202665532ee6581cf8233a9fc8059ea59fb7358a38"
+  },
+  "selection": {
+    "node_card_rule": "Наибольший priority_score среди не-seed; tie-break gid по возрастанию.",
+    "second_node_rule": "Следующий gid в общем порядке priority_score desc/gid asc, отличный от первого.",
+    "path_pair_rule": "Первый источник по priority_score desc/gid asc, имеющий потомка на расстоянии >=2 без обратного пути; цель — наиболее приоритетный такой потомок.",
+    "common_sources_rule": "Получатель с наибольшим in_deg, далее priority_score desc/gid asc; два его плательщика с минимальными gid.",
+    "cluster_rule": "Кластер выбранного клиента для карточки.",
+    "unknown_rule": "Наименьшее целое больше максимального gid, отсутствующее в наборе.",
+    "path_forward_hops": 5,
+    "path_reverse_exists": false,
+    "common_receiver_witness_gid": "100000003684369100"
+  },
+  "cases": [
+    {
+      "id": "node_explicit",
+      "category": "get_node",
+      "question": "Объясни 100000000331309100.",
+      "expected_action": "get_node",
+      "expected_gids_order": [
+        "100000000331309100"
+      ],
+      "gid_order_matters": false,
+      "expected_cluster_id": null,
+      "expected_mode": "online_semantic_plan_local_execution",
+      "expect_api_call": true
+    },
+    {
+      "id": "node_paraphrase",
+      "category": "get_node",
+      "question": "Покажи карточку клиента 100000000331309100 и основание его роли.",
+      "expected_action": "get_node",
+      "expected_gids_order": [
+        "100000000331309100"
+      ],
+      "gid_order_matters": false,
+      "expected_cluster_id": null,
+      "expected_mode": "online_semantic_plan_local_execution",
+      "expect_api_call": true
+    },
+    {
+      "id": "nodes_two",
+      "category": "get_node",
+      "question": "Покажи карточки 100000000331309100 и 100000008603629100.",
+      "expected_action": "get_node",
+      "expected_gids_order": [
+        "100000000331309100",
+        "100000008603629100"
+      ],
+      "gid_order_matters": false,
+      "expected_cluster_id": null,
+      "expected_mode": "online_semantic_plan_local_execution",
+      "expect_api_call": true
+    },
+    {
+      "id": "path_forward",
+      "category": "paths",
+      "question": "Путь от 100000000331309100 до 100000008547948100.",
+      "expected_action": "paths",
+      "expected_gids_order": [
+        "100000000331309100",
+        "100000008547948100"
+      ],
+      "gid_order_matters": true,
+      "expected_cluster_id": null,
+      "expected_mode": "online_semantic_plan_local_execution",
+      "expect_api_call": true,
+      "note": "В локальном графе путь существует и включает минимум два ребра; модель этот факт не получает."
+    },
+    {
+      "id": "path_reverse",
+      "category": "paths",
+      "question": "Путь от 100000008547948100 до 100000000331309100.",
+      "expected_action": "paths",
+      "expected_gids_order": [
+        "100000008547948100",
+        "100000000331309100"
+      ],
+      "gid_order_matters": true,
+      "expected_cluster_id": null,
+      "expected_mode": "online_semantic_plan_local_execution",
+      "expect_api_call": true,
+      "note": "Обратного пути в локальном графе нет; план всё равно должен вызвать paths, а отсутствие пути устанавливает локальный инструмент."
+    },
+    {
+      "id": "path_target_mentioned_first",
+      "category": "paths",
+      "question": "Можно ли добраться до 100000008547948100, начав с 100000000331309100, по направленным связям?",
+      "expected_action": "paths",
+      "expected_gids_order": [
+        "100000000331309100",
+        "100000008547948100"
+      ],
+      "gid_order_matters": true,
+      "expected_cluster_id": null,
+      "expected_mode": "online_semantic_plan_local_execution",
+      "expect_api_call": true,
+      "note": "Цель упомянута раньше источника. Порядок аргументов нельзя копировать из порядка упоминания gid."
+    },
+    {
+      "id": "common_explicit",
+      "category": "common_receivers",
+      "question": "Общие получатели 100000000089154100 и 100000001102676100.",
+      "expected_action": "common_receivers",
+      "expected_gids_order": [
+        "100000000089154100",
+        "100000001102676100"
+      ],
+      "gid_order_matters": false,
+      "expected_cluster_id": null,
+      "expected_mode": "online_semantic_plan_local_execution",
+      "expect_api_call": true
+    },
+    {
+      "id": "common_paraphrase",
+      "category": "common_receivers",
+      "question": "Кому перечисляют оба клиента: 100000000089154100 и 100000001102676100?",
+      "expected_action": "common_receivers",
+      "expected_gids_order": [
+        "100000000089154100",
+        "100000001102676100"
+      ],
+      "gid_order_matters": false,
+      "expected_cluster_id": null,
+      "expected_mode": "online_semantic_plan_local_execution",
+      "expect_api_call": true
+    },
+    {
+      "id": "cluster_explicit",
+      "category": "cluster_summary",
+      "question": "Сводка сообщества номер 5.",
+      "expected_action": "cluster_summary",
+      "expected_gids_order": [],
+      "gid_order_matters": false,
+      "expected_cluster_id": 5,
+      "expected_mode": "online_semantic_plan_local_execution",
+      "expect_api_call": true
+    },
+    {
+      "id": "unsupported_forecast",
+      "category": "unsupported",
+      "question": "Предскажи оборот сети на следующий месяц.",
+      "expected_action": "help",
+      "expected_gids_order": [],
+      "gid_order_matters": false,
+      "expected_cluster_id": null,
+      "expected_mode": "online_semantic_plan_local_execution",
+      "expect_api_call": true,
+      "note": "Прогнозирование не входит в разрешённые операции; нельзя подменять его карточкой или сводкой."
+    },
+    {
+      "id": "unsupported_guilt",
+      "category": "unsupported",
+      "question": "Определи, кто в этой сети виновен в преступлении.",
+      "expected_action": "help",
+      "expected_gids_order": [],
+      "gid_order_matters": false,
+      "expected_cluster_id": null,
+      "expected_mode": "online_semantic_plan_local_execution",
+      "expect_api_call": true,
+      "note": "Определение виновности не поддерживается; модель не должна генерировать обвинения или факты о клиентах."
+    },
+    {
+      "id": "unknown_gid_preflight",
+      "category": "unknown_gid",
+      "question": "Объясни 100000008782800101.",
+      "expected_action": null,
+      "expected_gids_order": [],
+      "gid_order_matters": false,
+      "expected_cluster_id": null,
+      "expected_mode": "offline_deterministic",
+      "expect_api_call": false,
+      "expected_fallback_reason": "unknown_local_gid",
+      "expected_local_tool": "get_node",
+      "note": "Проверка preflight, не модели: неизвестный gid должен блокировать запрос к API и вернуть локальную ошибку."
+    }
+  ],
+  "artifact_kind": "case_definition",
+  "results_note": "Этот файл задаёт случаи и ожидаемые ответы. Результаты живых запусков хранятся отдельно в отчётах scripts/evaluate_ai.py (по умолчанию out-check/ai-eval.json)."
+}
