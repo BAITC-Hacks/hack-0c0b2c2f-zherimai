@@ -8,6 +8,12 @@ import pandas as pd
 from .load import load_data
 
 
+GID_PATTERN = r"[0-9]{15,20}"
+GID_LIST_PATTERN = rf"{GID_PATTERN}(?:(?:\s*[,;]\s*|\s+(?:и|and)\s+|\s+){GID_PATTERN})*"
+HELP_EXAMPLES = ["Объясни <gid>", "Путь от <gid> до <gid>",
+                 "Общие получатели <gid> и <gid>", "Кластер <номер>"]
+
+
 class AnalystAssistant:
     def __init__(self, data_dir=Path("data"), out_dir=Path("out")):
         self.nodes = pd.read_csv(out_dir / "nodes_roles.csv", dtype={"gid": str}).set_index("gid")
@@ -52,20 +58,39 @@ class AnalystAssistant:
         return json.loads(rows.iloc[0].to_json(force_ascii=False))
 
     def answer(self, question):
-        gids = re.findall(r"(?<!\d)\d{15,20}(?!\d)", question)
-        q = question.lower()
-        cluster = re.search(r"(?:кластер|cluster)\s*#?\s*(\d{1,5})(?!\d)", q)
-        if cluster:
-            tool, result = "cluster_summary", self.cluster_summary(int(cluster.group(1)))
-        elif len(gids) >= 2 and any(word in q for word in ("общ", "common", "собира", "сбор")):
-            tool, result = "common_receivers", self.common_receivers(gids)
-        elif len(gids) >= 2 and any(word in q for word in ("путь", "пути", "path", "связ")):
-            tool, result = "paths", self.paths(gids[0], gids[1])
-        elif gids:
-            tool, result = "get_node", [self.get_node(g) for g in gids]
+        # A gid in arbitrary prose is not a request to explain that node.
+        # Match the whole supported command so malformed or extra arguments
+        # cannot silently turn into a different query.
+        q = question.strip().rstrip(".?!").strip()
+        tool, result = "help", {
+            "examples": list(HELP_EXAMPLES),
+            "message": "Это локальный помощник по правилам, без LLM. Поддерживаются только команды из примеров или полный gid; произвольные вопросы не поддерживаются.",
+        }
+        if re.match(r"(?:кластер|cluster)\b", q, re.IGNORECASE):
+            tool = "cluster_summary"
+            cluster = re.fullmatch(r"(?:кластер|cluster)\s*[#№]?\s*([0-9]{1,5})", q, re.IGNORECASE)
+            result = (self.cluster_summary(int(cluster.group(1))) if cluster else
+                      {"error": "Укажите целый неотрицательный номер: «Кластер <номер>»."})
+        elif re.match(r"(?:путь|пути|path)\b", q, re.IGNORECASE):
+            tool = "paths"
+            path = re.fullmatch(
+                rf"(?:путь|пути|path)\s+(?:(?:от|from)\s+)?({GID_PATTERN})"
+                rf"\s+(?:(?:до|к|to|->|→)\s*)?({GID_PATTERN})", q, re.IGNORECASE)
+            result = (self.paths(*path.groups()) if path else
+                      {"error": "Укажите ровно два gid: «Путь от <gid> до <gid>»."})
+        elif re.match(r"(?:общие\s+получатели|common(?:\s+receivers)?)\b", q, re.IGNORECASE):
+            tool = "common_receivers"
+            common = re.fullmatch(
+                rf"(?:общие\s+получатели|common(?:\s+receivers)?)\s+({GID_LIST_PATTERN})",
+                q, re.IGNORECASE)
+            result = (self.common_receivers(re.findall(GID_PATTERN, common.group(1))) if common else
+                      {"error": "Укажите минимум два разных gid: «Общие получатели <gid> и <gid>»."})
         else:
-            tool, result = "help", {"examples": ["Объясни <gid>", "Путь от <gid> до <gid>", "Общие получатели <gid> и <gid>", "Кластер <номер>"],
-                                     "message": "Это локальный помощник по правилам, без LLM. Укажите gid или номер кластера; произвольные вопросы не поддерживаются."}
+            node = re.fullmatch(
+                rf"(?:(?:объясни|покажи|узел|explain|show|node)\s+)?({GID_LIST_PATTERN})",
+                q, re.IGNORECASE)
+            if node:
+                tool, result = "get_node", [self.get_node(g) for g in re.findall(GID_PATTERN, node.group(1))]
         return {"mode": "offline_deterministic", "tool": tool, "result": result}
 
 
