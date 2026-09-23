@@ -90,7 +90,7 @@
     "coordinator_betweenness_quantile": 0.99,
     "coordinator_betweenness_actual": 0.0019892319141409562
   },
-  "runtime_seconds": 5.369,
+  "runtime_seconds": 4.1971,
   "python": "3.13.2",
   "packages": {
     "pandas": "3.0.6",
