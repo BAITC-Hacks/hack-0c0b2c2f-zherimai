@@ -1,0 +1,215 @@
+{
+  "commit": "5926dbd12dc233093eb9b9b726cf114692f8079c",
+  "origin_main_at_start": "5926dbd12dc233093eb9b9b726cf114692f8079c",
+  "started_utc": "2026-09-23T12:39:22.861855+00:00",
+  "status": "PASS",
+  "environment": {
+    "python": "3.13.15",
+    "os": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "packages": {
+      "pandas": "3.0.6",
+      "pyarrow": "25.0.1",
+      "networkx": "3.7",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "python-dateutil": "2.9.0.post0",
+      "six": "1.17.0",
+      "tzdata": "2026.4"
+    },
+    "node": "v24.19.0"
+  },
+  "preparation": {
+    "reused_verified_environment": true,
+    "new_venv_installation": false,
+    "requirements_unchanged": true,
+    "network_or_paid_api_calls": false
+  },
+  "commands": [
+    {
+      "cwd": "source",
+      "argv": [
+        "python",
+        "-B",
+        "tests/run_without_network.py",
+        "run.py",
+        "--data",
+        "data",
+        "--out",
+        "out"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 3.9067
+    },
+    {
+      "cwd": "source",
+      "argv": [
+        "python",
+        "-B",
+        "tests/run_without_network.py",
+        "validate.py",
+        "--data",
+        "data",
+        "--out",
+        "out"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.152
+    },
+    {
+      "cwd": "source",
+      "argv": [
+        "python",
+        "-B",
+        "tests/run_without_network.py",
+        "scripts/audit_top.py",
+        "--data",
+        "data",
+        "--out",
+        "out"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.3852
+    },
+    {
+      "cwd": "source",
+      "argv": [
+        "node",
+        "scripts/check_viewer.cjs"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.5722
+    },
+    {
+      "cwd": "source",
+      "argv": [
+        "python",
+        "-B",
+        "-W",
+        "error::ResourceWarning",
+        "tests/run_without_network.py",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 5.8464
+    }
+  ],
+  "pipeline": {
+    "n_nodes": 2248,
+    "n_edges": 3119,
+    "n_transactions": 4840,
+    "runtime_seconds": 3.656,
+    "role_counts": {
+      "peripheral": 1540,
+      "terminal": 566,
+      "distributor": 43,
+      "consolidator": 42,
+      "transit": 36,
+      "coordinator": 21
+    }
+  },
+  "tests": {
+    "passed": 98,
+    "seconds": 4.967,
+    "ResourceWarning_is_error": true
+  },
+  "audit": {
+    "mismatches": {},
+    "isolated_nodes_preserved": 19,
+    "terminals_at_depth4": 0
+  },
+  "output_comparison": {
+    "git_line_endings_only_may_be_normalized": true,
+    "byte_identical_artifacts": 8,
+    "files": [
+      {
+        "file": "out/clusters.csv",
+        "actual_sha256": "8b68497baedc29197f11cfcdf74fecd163a2ee05e6e7387800b1a9395974ef97",
+        "archive_sha256": "8b68497baedc29197f11cfcdf74fecd163a2ee05e6e7387800b1a9395974ef97",
+        "byte_identical": true,
+        "lf_normalized_identical": true
+      },
+      {
+        "file": "out/data_requests.csv",
+        "actual_sha256": "4f57b91ab469f61c6b896cbc6c439ec0cdfc9aa2cdcd02ea885430e128846151",
+        "archive_sha256": "4f57b91ab469f61c6b896cbc6c439ec0cdfc9aa2cdcd02ea885430e128846151",
+        "byte_identical": true,
+        "lf_normalized_identical": true
+      },
+      {
+        "file": "out/network.html",
+        "actual_sha256": "2b82eeed5cbe3481169d0ece95771135bb6b873ba758372257ef48bb3d6212fc",
+        "archive_sha256": "2b82eeed5cbe3481169d0ece95771135bb6b873ba758372257ef48bb3d6212fc",
+        "byte_identical": true,
+        "lf_normalized_identical": true
+      },
+      {
+        "file": "out/node_stability.csv",
+        "actual_sha256": "095e358c75f6fc750494f5d887e7055f32a011fe1e1f5e3c6151ac9ac83d1e65",
+        "archive_sha256": "095e358c75f6fc750494f5d887e7055f32a011fe1e1f5e3c6151ac9ac83d1e65",
+        "byte_identical": true,
+        "lf_normalized_identical": true
+      },
+      {
+        "file": "out/nodes_roles.csv",
+        "actual_sha256": "49912ccfeaeaa31f6e986b48f14ec788af632a67959859a9136bd05a1b4d626f",
+        "archive_sha256": "49912ccfeaeaa31f6e986b48f14ec788af632a67959859a9136bd05a1b4d626f",
+        "byte_identical": true,
+        "lf_normalized_identical": true
+      },
+      {
+        "file": "out/resilience.csv",
+        "actual_sha256": "9f22a7e19b285f20305114b0a029691e807ec5b122205124b3902aae690636f6",
+        "archive_sha256": "9f22a7e19b285f20305114b0a029691e807ec5b122205124b3902aae690636f6",
+        "byte_identical": true,
+        "lf_normalized_identical": true
+      },
+      {
+        "file": "out/sensitivity.csv",
+        "actual_sha256": "27ba0ed03f588633e0c18e49f9ca74ebdd5c1161f85b8b1a273cea90f5e8884c",
+        "archive_sha256": "27ba0ed03f588633e0c18e49f9ca74ebdd5c1161f85b8b1a273cea90f5e8884c",
+        "byte_identical": true,
+        "lf_normalized_identical": true
+      },
+      {
+        "file": "out/top_nodes.csv",
+        "actual_sha256": "3e725b9eabf5352e54ac090d4da22560cb00bb458e69712baff98ed26f71c49b",
+        "archive_sha256": "3e725b9eabf5352e54ac090d4da22560cb00bb458e69712baff98ed26f71c49b",
+        "byte_identical": true,
+        "lf_normalized_identical": true
+      }
+    ]
+  },
+  "package": {
+    "file": "dalaai-windows-py313-5926dbd.zip",
+    "commit": "5926dbd12dc233093eb9b9b726cf114692f8079c",
+    "bytes": 89780228,
+    "sha256": "4db2ee56422c5426d6ad19c0b3f32e25c1225508390268a1563eab10cda9ee30",
+    "entries": 107,
+    "source_files_checked": 88,
+    "wheels_checked": 8,
+    "source_archive_crc": "PASS",
+    "all_wheel_crc": "PASS",
+    "kit_crc": "PASS",
+    "duplicate_entries": false,
+    "verified": true,
+    "source_archive": "source-5926dbd.zip",
+    "source_archive_sha256": "cda70dac99790a5b05a12c1d844aeca0cd05d7525e4f005392fa653e2e3ae840",
+    "source_manifest": "source-manifest.json",
+    "wheel_manifest": "wheelhouse-manifest.json",
+    "instructions": "OFFLINE-WINDOWS.md",
+    "metadata": "offline-package.json"
+  },
+  "limitations": [
+    "Windows AMD64 / preinstalled CPython 3.13 required; Python and its installer are not included",
+    "Existing verified environment and unchanged eight wheels reused; no new installation claimed",
+    "Static/DOM verification only; no visual browser review or human rehearsal performed",
+    "Python socket guard is process-local, not a firewall; child processes and native calls outside hooks are not covered",
+    "Platform submission and physical network disconnection were not performed"
+  ]
+}
